@@ -13,9 +13,9 @@ sns.set_theme(style="ticks",
               },
               )
 
-neuron = Neuron(model='const_g', params={'gL':0.1, 'gK':0.2, 'gNa':0})
+neuron = Neuron(model='lif')
 I_ext = np.zeros(20000)
-I_ext[7000:13000] = 10
+I_ext[7500:12500] = 10
 stats = neuron.simulate(20000, 0.01, I_ext)
 
 fig, ax = plt.subplots(1, 1, figsize=(10, 3))

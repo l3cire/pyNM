@@ -14,29 +14,31 @@ class Neuron:
     g_K: IonChannel
     g_Na: IonChannel
 
-    def __init__(self, model='hh', V_start=-70, V_rest=-70, C_m=1, E_L=-59.4, E_K=-82, E_Na=45, gL=0.3, gK=36.0, gNa=120.0):
-        self.V_rest = V_rest
-        self.V = V_start
+    def __init__(self, model='hh', params: dict = {}):#V_start=-70, V_rest=-70, C_m=1, E_L=-59.4, E_K=-82, E_Na=45, gL=0.3, gK=36.0, gNa=120.0):
+        self.V_rest = params.get('V_rest', -70.0)
+        self.V = params.get('V_start', -70.0)
 
-        self.C_m = C_m
+        self.C_m = params.get('C_m', 1.0)
 
-        self.E_L = E_L
-        self.E_K = E_K
-        self.E_Na = E_Na
+        self.E_L = params.get('E_L', -59.4)
+        self.E_K = params.get('E_K', -82)
+        self.E_Na = params.get('E_Na', 45)
 
         self.model = model
         if model == 'hh':
-            self.g_L = IonChannelConst(gL)
-            self.g_K = HHIonChannelK(gK, V_start - V_rest)
-            self.g_Na = HHIonChannelNa(gNa, V_start - V_rest)
-        elif model == 'const_g':
-            self.g_L = IonChannelConst(gL)
-            self.g_K = IonChannelConst(gK)
-            self.g_Na = IonChannelConst(gNa)
-            self.V_rest = (gL * E_L + gK * E_K + gNa * E_Na) / (gL + gK + gNa)
-            self.V = self.V_rest
-        elif model == 'l-if':
-            pass
+            self.g_L = IonChannelConst(params.get('gL', 0.3))
+            self.g_K = HHIonChannelK(params.get('gK', 36.0), self.V - self.V_rest)
+            self.g_Na = HHIonChannelNa(params.get('gNa', 120.0), self.V - self.V_rest)
+        elif model == 'const_g' or model == 'lif':
+            self.g_L = IonChannelConst(params.get('gL', 0.3))
+            self.g_K = IonChannelConst(params.get('gK', 0.366))
+            self.g_Na = IonChannelConst(params.get('gNa', 0.0106))
+            self.C_m = params.get('C_m', 2.0)
+            self.V_rest = (self.g_L.g * self.E_L + self.g_K.g * self.E_K + self.g_Na.g * self.E_Na) / (self.g_L.g + self.g_K.g + self.g_Na.g)
+            if model == 'lif':
+                self.V_threshold = params.get('V_threshold', -56.0)
+                self.V_reset = params.get('V_reset', -80.099)
+                self.V_spike = params.get('V_spike', 35.685)
         else:
             pass
 
@@ -61,8 +63,12 @@ class Neuron:
         stats.I_total = stats.I_leak + stats.I_K + stats.I_Na + stats.I_ext
 
         self.V += stats.I_total * dt / self.C_m  # since dV/dt = CI
-
         stats.Vm = self.V
+
+        if self.model == 'lif':
+            if(self.V > self.V_threshold):
+                self.V = self.V_reset
+                stats.Vm = self.V_spike
 
         return stats
 
@@ -75,5 +81,5 @@ class Neuron:
             t = i * dt
             self.I_ext = I_input[i]
 
-            stats.data[i] = self.step(t, dt)
+            stats.data.append(self.step(t, dt))
         return stats

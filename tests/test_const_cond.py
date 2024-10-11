@@ -20,7 +20,7 @@ stats = neuron.simulate(20000, 0.01, I_ext)
 
 fig, ax = plt.subplots(1, 1, figsize=(10, 3))
 assert isinstance(ax, Axes)
-ax.plot([x.T for x in stats.data], [x.Vm for x in stats.data])
+ax.plot([x.T for x in stats.step_data], [x.Vm for x in stats.step_data])
 ax.set_title('Dynamics with $I_{ext} = 10$')
 ax.set_xlabel('Time (ms)')
 ax.set_ylabel('Membrane potential V (mV)')

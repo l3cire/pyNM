@@ -18,3 +18,8 @@ class HHIonChannelK(IonChannel):
         self.n_gate.update(v, dt)
         self.g = self.g_max * np.power(self.n_gate.state, 4)
         return self.g
+    
+    def reset(self, v_init: float = 0):
+        self.n_gate.set_inf_state(v_init)
+        self.g = self.g_max * np.power(self.n_gate.state, 4)
+

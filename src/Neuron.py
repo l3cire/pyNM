@@ -1,3 +1,4 @@
+from typing import Optional
 from src.ion_channels.HHIonChannelK import HHIonChannelK
 from src.ion_channels.IonChannel import IonChannel
 from src.ion_channels.IonChannelConst import IonChannelConst
@@ -17,6 +18,8 @@ class Neuron:
     def __init__(self, model='hh', params: dict = {}):#V_start=-70, V_rest=-70, C_m=1, E_L=-59.4, E_K=-82, E_Na=45, gL=0.3, gK=36.0, gNa=120.0):
         self.V_rest = params.get('V_rest', -70.0)
         self.V = params.get('V_start', -70.0)
+        self.V_threshold = params.get('V_threshold', -56.0)
+
 
         self.C_m = params.get('C_m', 1.0)
 
@@ -36,11 +39,20 @@ class Neuron:
             self.C_m = params.get('C_m', 2.0)
             self.V_rest = (self.g_L.g * self.E_L + self.g_K.g * self.E_K + self.g_Na.g * self.E_Na) / (self.g_L.g + self.g_K.g + self.g_Na.g)
             if model == 'lif':
-                self.V_threshold = params.get('V_threshold', -56.0)
                 self.V_reset = params.get('V_reset', -80.099)
                 self.V_spike = params.get('V_spike', 35.685)
         else:
             pass
+
+    def reset(self, V: Optional[float] = None):
+        if not V:
+            self.V = self.V_rest
+        else:
+            self.V = V
+
+        self.g_L.reset(self.V)
+        self.g_K.reset(self.V)
+        self.g_Na.reset(self.V)
 
     def step(self, t, dt):
         stats = NeuronStepStatistics()
@@ -76,10 +88,22 @@ class Neuron:
         if len(I_input) == 0:
             I_input = np.zeros(N)
 
+        self.reset()
         stats = NeuronStatistics(N, dt)
         for i in range(N):
             t = i * dt
             self.I_ext = I_input[i]
 
-            stats.data.append(self.step(t, dt))
+            stats.step_data.append(self.step(t, dt))
+
+        for i in range(1, N-1):
+            if(stats.step_data[i].Vm > self.V_threshold and stats.step_data[i].Vm > stats.step_data[i-1].Vm 
+                   and stats.step_data[i].Vm > stats.step_data[i+1].Vm):
+                stats.step_data[i].spiked = True
+                stats.spikes.append(i)
+
+        for i in range(1, len(stats.spikes)):
+            stats.spike_intervals.append((stats.spikes[i] - stats.spikes[i-1])*dt)
+        stats.mean_interspike_int = np.mean(stats.spike_intervals)
+
         return stats

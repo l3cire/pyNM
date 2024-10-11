@@ -10,3 +10,6 @@ class IonChannelConst(IonChannel):
     def update_g(self, v, t, dt) -> float: 
         return self.g
 
+    def reset(self, v_init: float = 0):
+        return
+

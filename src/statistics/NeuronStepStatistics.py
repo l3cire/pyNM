@@ -19,3 +19,6 @@ class NeuronStepStatistics:
     gate_n: Optional[float] = None
     gate_m: Optional[float] = None
     gate_h: Optional[float] = None
+
+    spiked: bool = False
+

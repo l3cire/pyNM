@@ -1,4 +1,4 @@
-from src.Neuron import Neuron
+from src.neuron_models.ConstCondNeuron import ConstCondNeuron
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.axes import Axes
@@ -13,7 +13,7 @@ sns.set_theme(style="ticks",
               },
               )
 
-neuron = Neuron(model='const_g', params={'gL':0.1, 'gK':0.2, 'gNa':0})
+neuron = ConstCondNeuron(params={'gL':0.1, 'gK':0.2, 'gNa':0})
 I_ext = np.zeros(20000)
 I_ext[7000:13000] = 10
 stats = neuron.simulate(20000, 0.01, I_ext)

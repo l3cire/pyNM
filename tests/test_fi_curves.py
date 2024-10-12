@@ -1,4 +1,5 @@
-from src.Neuron import Neuron
+from src.neuron_models.HHNeuron import HHNeuron
+from src.neuron_models.LIFNeuron import LIFNeuron
 from src.NeuralModel import NeuralModel
 import numpy as np
 from matplotlib import pyplot as plt
@@ -14,8 +15,8 @@ sns.set_theme(style="ticks",
               },
               )
 
-neuron_hh = Neuron(model='hh')
-neuron_lif = Neuron(model='lif', params={'C_m':1})
+neuron_hh = HHNeuron()
+neuron_lif = LIFNeuron()
 model = NeuralModel()
 I = np.linspace(0, 30, 100)
 f_hh = model.get_fi_curve(neuron_hh, I)

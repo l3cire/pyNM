@@ -1,4 +1,4 @@
-from src.Neuron import Neuron
+from src.neuron_models.Neuron import Neuron
 import numpy as np
 
 

@@ -1,4 +1,4 @@
-from src.Neuron import Neuron
+from src.neuron_models.LIFNeuron import LIFNeuron
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.axes import Axes
@@ -13,7 +13,7 @@ sns.set_theme(style="ticks",
               },
               )
 
-neuron = Neuron(model='lif')
+neuron = LIFNeuron()
 I_ext = np.zeros(20000)
 I_ext[7500:12500] = 10
 stats = neuron.simulate(20000, 0.01, I_ext)

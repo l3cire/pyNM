@@ -1,6 +1,5 @@
 from typing import Optional
-import numpy as np
-from ..input_current import InputCurrent, ConstInputCurrent
+from ..input_current import CONST_ZERO_INPUT, InputCurrent
 from ..statistics import NeuronStatistics, NeuronStepStatistics
 from ._Neuron import Neuron
 from ..ion_channels import IonChannelConst
@@ -33,6 +32,6 @@ class ConstCondNeuron(Neuron):
     def reset(self, V: Optional[float] = None):
         return super().reset(V)
 
-    def simulate(self, N: int, dt: float, I_input:InputCurrent = ConstInputCurrent()) -> NeuronStatistics:
+    def simulate(self, N: int, dt: float, I_input:InputCurrent = CONST_ZERO_INPUT) -> NeuronStatistics:
         return super().simulate(N, dt, I_input)
 

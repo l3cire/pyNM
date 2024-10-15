@@ -1,6 +1,6 @@
 from typing import Optional
 
-from ..input_current import InputCurrent, ConstInputCurrent
+from ..input_current import InputCurrent, CONST_ZERO_INPUT
 from ..ion_channels import IonChannel
 from ..statistics import NeuronStatistics
 from ..statistics import NeuronStepStatistics
@@ -94,7 +94,7 @@ class Neuron:
 
         return stats
 
-    def simulate(self, N: int, dt: float, I_input: InputCurrent = ConstInputCurrent())-> NeuronStatistics:
+    def simulate(self, N: int, dt: float, I_input: InputCurrent = CONST_ZERO_INPUT) -> NeuronStatistics:
         """
         Simulate `N` steps given the external current stimulation. Returns a `pyneural.statistics.NeuronStatistics` object.
 

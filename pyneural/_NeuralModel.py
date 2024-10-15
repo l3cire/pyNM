@@ -1,5 +1,5 @@
+from .input_current import ConstInputCurrent
 from .neuron_models import Neuron
-import numpy as np
 
 
 class NeuralModel:
@@ -26,7 +26,7 @@ class NeuralModel:
         """
         firing_rates = []
         for I in I_ext:
-            stats = neuron.simulate(N_iter, dt, (np.zeros(N_iter) + I))
+            stats = neuron.simulate(N_iter, dt, ConstInputCurrent(I = I))
             firing_rates.append(1/stats.mean_interspike_int)
         return firing_rates
 

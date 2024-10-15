@@ -1,5 +1,6 @@
 from typing import Optional
 import numpy as np
+from ..input_current import InputCurrent, ConstInputCurrent
 from ..statistics import NeuronStepStatistics, NeuronStatistics
 from ..ion_channels import HHIonChannelNa, HHIonChannelK, IonChannelConst
 from ._Neuron import Neuron
@@ -37,6 +38,6 @@ class HHNeuron(Neuron):
     def reset(self, V: Optional[float] = None):
         return super().reset(V)
 
-    def simulate(self, N: int, dt: float, I_input=np.array([])) -> NeuronStatistics:
+    def simulate(self, N: int, dt: float, I_input:InputCurrent = ConstInputCurrent()) -> NeuronStatistics:
         return super().simulate(N, dt, I_input)
 

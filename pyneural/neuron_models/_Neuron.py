@@ -1,4 +1,6 @@
 from typing import Optional
+
+from ..input_current import InputCurrent, ConstInputCurrent
 from ..ion_channels import IonChannel
 from ..statistics import NeuronStatistics
 from ..statistics import NeuronStepStatistics
@@ -92,22 +94,20 @@ class Neuron:
 
         return stats
 
-    def simulate(self, N: int, dt: float, I_input=np.array([])) -> NeuronStatistics:
+    def simulate(self, N: int, dt: float, I_input: InputCurrent = ConstInputCurrent())-> NeuronStatistics:
         """
         Simulate `N` steps given the external current stimulation. Returns a `pyneural.statistics.NeuronStatistics` object.
 
         :param N: number of steps in a simulation
         :param dt: time interval between two consecutive steps in ms.
-        :param I_input: `numpy` array of `N` float elements containing the values of external current (in mA) per each step.
+        :param I_input: `pyneural.input_current.InputCurrent` object specifying the current stimulation.
         """
-        if len(I_input) == 0:
-            I_input = np.zeros(N)
 
         self.reset()
         stats = NeuronStatistics(N, dt)
         for i in range(N):
             t = i * dt
-            self.I_ext = I_input[i]
+            self.I_ext = I_input.get_current(t)
 
             stats.step_data.append(self.step(t, dt))
 

@@ -1,3 +1,4 @@
+from pyneural.input_current import ConstInputCurrent
 from pyneural.neuron_models import LIFNeuron
 import numpy as np
 from matplotlib import pyplot as plt
@@ -14,8 +15,7 @@ sns.set_theme(style="ticks",
               )
 
 neuron = LIFNeuron()
-I_ext = np.zeros(20000)
-I_ext[7500:12500] = 10
+I_ext = ConstInputCurrent(75, 127, 10)
 stats = neuron.simulate(20000, 0.01, I_ext)
 
 fig, ax = plt.subplots(1, 1, figsize=(10, 3))

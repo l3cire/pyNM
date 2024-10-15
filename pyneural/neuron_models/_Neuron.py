@@ -6,25 +6,58 @@ import numpy as np
 
 
 class Neuron:
-    I_ext = 0.0
+    """
+    A base class for models of a single neuron, which specifies the main parameters of any neuron cell. 
+
+    """
+    I_ext: float = 0.0
+    """External current stimulation in mA. Typically between 0 and 50. The variation in current is usually caused by other neurons connected to the current one by synnapses."""
 
     g_L: IonChannel
+    """@private Leak ion channel."""
     g_K: IonChannel
+    """@private Potassium ion channel."""
     g_Na: IonChannel
+    """@private Sodium ion channel."""
 
     def __init__(self, params: dict = {}):#V_start=-70, V_rest=-70, C_m=1, E_L=-59.4, E_K=-82, E_Na=45, gL=0.3, gK=36.0, gNa=120.0):
-        self.V_rest = params.get('V_rest', -70.0)
-        self.V = params.get('V_start', -70.0)
-        self.V_threshold = params.get('V_threshold', -56.0)
+        """
+        Initialize a new neuron.
 
+        :param params['V_rest']: resting potential in mV (-70.0 by default).
+        :param params['V']: starting membrane potential in mV (-70.0 by default).
+        :param params['V_threshold']: threshold voltage in mV (-56.0 by default). This is the value of membrane potential that certainly generates a spike. Needed for spike detection.
+        :param params['C_m']: membrane capacitance in μF/cm2 (1.0 by default).
+        :param params['E_L']: leak ion channels reversal potantial in mV (-59.4 by default).
+        :param params['E_K']: potassium ion channels reversal potential in mV (-82.0 by default).
+        :param params['E_Na']: sodium ion channels reversal potential in mV (45.0 by default).
+
+        Note that the conductances of ion channels are not specidied in the base class constructor since they differ in different models.
+        """
+        self.V_rest = params.get('V_rest', -70.0)
+        """@private"""
+        self.V = params.get('V_start', -70.0)
+        """@private"""
+        self.V_threshold = params.get('V_threshold', -56.0)
+        """@private"""
 
         self.C_m = params.get('C_m', 1.0)
+        """@private"""
 
         self.E_L = params.get('E_L', -59.4)
+        """@private"""
         self.E_K = params.get('E_K', -82)
+        """@private"""
         self.E_Na = params.get('E_Na', 45)
+        """@private"""
 
     def reset(self, V: Optional[float] = None):
+        """
+        Reset the neuron to the stable state. All ion channels are reset with respect to the membrane potential.
+
+        :param V: new membrane potential in mV. If not specified, is set to the resting potential.
+        """
+
         if not V:
             self.V = self.V_rest
         else:
@@ -34,7 +67,13 @@ class Neuron:
         self.g_K.reset(self.V - self.V_rest)
         self.g_Na.reset(self.V - self.V_rest)
 
-    def step(self, t, dt):
+    def step(self, t: float, dt: float) -> NeuronStepStatistics:
+        """
+        Perform one step of a simulation. Returns a `pyneural.statistics.NeuronStepStatistics` object.
+
+        :param t: current time in ms.
+        :param dt: time between two consecutive simulation steps in ms.
+        """
         stats = NeuronStepStatistics()
         stats.T = t
 
@@ -53,7 +92,14 @@ class Neuron:
 
         return stats
 
-    def simulate(self, N, dt, I_input=np.array([])):
+    def simulate(self, N: int, dt: float, I_input=np.array([])) -> NeuronStatistics:
+        """
+        Simulate `N` steps given the external current stimulation. Returns a `pyneural.statistics.NeuronStatistics` object.
+
+        :param N: number of steps in a simulation
+        :param dt: time interval between two consecutive steps in ms.
+        :param I_input: `numpy` array of `N` float elements containing the values of external current (in mA) per each step.
+        """
         if len(I_input) == 0:
             I_input = np.zeros(N)
 

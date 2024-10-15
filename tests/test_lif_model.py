@@ -1,4 +1,4 @@
-from src.neuron_models.LIFNeuron import LIFNeuron
+from pyneural.neuron_models import LIFNeuron
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.axes import Axes

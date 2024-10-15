@@ -1,4 +1,4 @@
-from src.neuron_models.ConstCondNeuron import ConstCondNeuron
+from pyneural.neuron_models import ConstCondNeuron
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.axes import Axes

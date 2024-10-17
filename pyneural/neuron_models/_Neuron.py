@@ -1,10 +1,6 @@
 from typing import Optional
 from abc import ABC, abstractmethod
-from ..input_current import InputCurrent, CONST_ZERO_INPUT
-from ..ion_channels import IonChannel
-from ..statistics import NeuronStatistics
 from ..statistics import NeuronStepStatistics
-import numpy as np
 
 
 class Neuron(ABC):

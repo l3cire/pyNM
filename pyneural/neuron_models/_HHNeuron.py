@@ -1,6 +1,5 @@
 from typing import Optional
-from ..input_current import CONST_ZERO_INPUT, InputCurrent
-from ..statistics import NeuronStepStatistics, NeuronStatistics
+from ..statistics import NeuronStepStatistics
 from ..ion_channels import HHIonChannelNa, HHIonChannelK, IonChannelConst
 from ._Neuron import Neuron
 
@@ -54,9 +53,9 @@ class HHNeuron(Neuron):
         self._V += stats.I_total * dt / self._C_m  # since dV/dt = CI
         stats.Vm = self._V
 
-        stats.gate_n = self._g_K.n_gate.state
-        stats.gate_m = self._g_Na.m_gate.state
-        stats.gate_h = self._g_Na.h_gate.state
+        stats.gate_n = self._g_K._n_gate.state
+        stats.gate_m = self._g_Na._m_gate.state
+        stats.gate_h = self._g_Na._h_gate.state
         return stats
 
     def reset(self, V: Optional[float] = None):

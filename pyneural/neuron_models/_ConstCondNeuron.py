@@ -1,6 +1,5 @@
 from typing import Optional
-from ..input_current import CONST_ZERO_INPUT, InputCurrent
-from ..statistics import NeuronStatistics, NeuronStepStatistics
+from ..statistics import NeuronStepStatistics
 from ._Neuron import Neuron
 from ..ion_channels import IonChannelConst
 

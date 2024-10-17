@@ -1,8 +1,5 @@
 from typing import Optional
-import numpy as np
-
-from ..input_current import CONST_ZERO_INPUT, InputCurrent
-from ..statistics import NeuronStatistics, NeuronStepStatistics
+from ..statistics import NeuronStepStatistics
 from ._ConstCondNeuron import ConstCondNeuron
 
 class LIFNeuron(ConstCondNeuron):

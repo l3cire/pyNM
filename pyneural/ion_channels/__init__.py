@@ -1,5 +1,5 @@
 """
-This module contains models for ion channels that control the ion flow through neuron membrane.
+This module contains models for ion channels that control the ion flow through neuron membrane, all inherited from an abstract superclass `pyneural.ion_channels.IonChannel`.
 """
 
 from ._MarkovIonGate import MarkovIonGate

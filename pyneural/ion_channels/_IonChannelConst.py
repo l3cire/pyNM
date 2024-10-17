@@ -2,9 +2,20 @@ from ._IonChannel import IonChannel
 
 
 class IonChannelConst(IonChannel):
-    g = 0.0
+    """
+    Ion channel with constant conductance.
 
-    def __init__(self, g):
+    Attributes:
+        g: ion channel conductance.
+    """
+    g: float = 0.0
+
+    def __init__(self, g: float):
+        """
+        Initialize a new ion channel with constant conductance.
+
+        :param g: conductance of this channel.
+        """
         self.g = g
 
     def update_g(self, v, t, dt) -> float: 

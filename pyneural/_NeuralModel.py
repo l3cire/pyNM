@@ -8,35 +8,12 @@ class NeuralModel:
     """
     This is the class for modeling the activity of neurons.
     """
-
-    def get_fi_curve(self, neuron: Neuron, I_ext, N_iter = 10000, dt = 0.01):
-        """
-        Compute the f-I curve of a given neuron.
-
-        This functions computes the f-I (spiking frequency vs. current stimulation) curve for a given neuron.
-
-        Parameters
-        ----------
-        neuron
-            a neuron object for which the curve is computed.
-        I_ext : list[float]
-            a list of different current stimulations for which the spiking frequency should be computed.
-        N_iter : int
-            a number of iterations per current in a simulation.
-        dt : float
-            an interval between two consequtive iterations in a simulation.
-        """
-        firing_rates = []
-        for I in I_ext:
-            stats = self.simulate_neuron(neuron, N_iter, dt, ConstInputCurrent(I = I))
-            firing_rates.append(1/stats.mean_interspike_int)
-        return firing_rates
-    
+        
     def simulate_neuron(self, neuron: Neuron, N: int, dt: float, I_input: InputCurrent = CONST_ZERO_INPUT) -> NeuronStatistics:
         """
         Simulate `N` steps given the external current stimulation for a single neuron. Returns a `pyneural.statistics.NeuronStatistics` object.
 
-        :param neuron: neuron to simpulate.
+        :param neuron: neuron to simulate.
         :param N: number of steps in a simulation.
         :param dt: time interval between two consecutive steps in ms.
         :param I_input: `pyneural.input_current.InputCurrent` object specifying the current stimulation.
@@ -61,3 +38,20 @@ class NeuralModel:
         stats.mean_interspike_int = np.mean(stats.spike_intervals)
 
         return stats
+        
+    def get_fi_curve(self, neuron: Neuron, I_ext, N_iter = 10000, dt = 0.01):
+        """
+        This function computes the f-I (spiking frequency vs. current stimulation) curve for a given neuron.
+
+        :param neuron: a neuron object for which the curve is computed.
+        :param I_ext: a list of different current stimulations for which the spiking frequency should be computed.
+        :param N_iter: a number of iterations per current in a simulation.
+        :param dt: an interval between two consequtive iterations in a simulation.
+        """
+
+        firing_rates = []
+        for I in I_ext:
+            stats = self.simulate_neuron(neuron, N_iter, dt, ConstInputCurrent(I = I))
+            firing_rates.append(1/stats.mean_interspike_int)
+        return firing_rates
+

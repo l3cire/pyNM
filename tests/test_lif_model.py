@@ -1,6 +1,6 @@
+from pyneural import NeuralModel
 from pyneural.input_current import ConstInputCurrent
 from pyneural.neuron_models import LIFNeuron
-import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.axes import Axes
 import seaborn as sns
@@ -15,8 +15,8 @@ sns.set_theme(style="ticks",
               )
 
 neuron = LIFNeuron()
-I_ext = ConstInputCurrent(75, 127, 10)
-stats = neuron.simulate(20000, 0.01, I_ext)
+I_ext = ConstInputCurrent(75, 127, 25)
+stats = NeuralModel().simulate_neuron(neuron, 20000, 0.01, I_ext)
 
 fig, ax = plt.subplots(1, 1, figsize=(10, 3))
 assert isinstance(ax, Axes)

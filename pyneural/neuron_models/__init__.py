@@ -10,6 +10,6 @@ from ._ConstCondNeuron import ConstCondNeuron
 __all__ = [
     'Neuron',
     'ConstCondNeuron',
+    'LIFNeuron',
     'HHNeuron',
-    'LIFNeuron'
 ]

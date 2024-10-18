@@ -1,5 +1,5 @@
 import numpy as np
-from .input_current import InputCurrent, ConstInputCurrent, CONST_ZERO_INPUT
+from .input_current import InputCurrent, NoisyConstInputCurrent, CONST_ZERO_INPUT
 from .neuron_models import Neuron
 from .statistics import NeuronStatistics
 
@@ -24,7 +24,6 @@ class NeuralModel:
         for i in range(N):
             t = i * dt
             neuron.I_ext = I_input.get_current(t)
-
             stats.step_data.append(neuron.step(t, dt))
 
         for i in range(1, N-1):
@@ -35,11 +34,13 @@ class NeuralModel:
 
         for i in range(1, len(stats.spikes)):
             stats.spike_intervals.append((stats.spikes[i] - stats.spikes[i-1])*dt)
-        stats.mean_interspike_int = np.mean(stats.spike_intervals)
-
+        if(len(stats.spike_intervals) > 0):
+            stats.mean_interspike_int = np.mean(stats.spike_intervals)
+        else:
+            stats.mean_interspike_int = 0
         return stats
         
-    def get_fi_curve(self, neuron: Neuron, I_ext, N_iter = 10000, dt = 0.01):
+    def get_fi_curve(self, neuron: Neuron, I_ext, N_iter = 100000, dt = 1):
         """
         This function computes the f-I (spiking frequency vs. current stimulation) curve for a given neuron.
 
@@ -51,7 +52,7 @@ class NeuralModel:
 
         firing_rates = []
         for I in I_ext:
-            stats = self.simulate_neuron(neuron, N_iter, dt, ConstInputCurrent(I = I))
-            firing_rates.append(1/stats.mean_interspike_int)
+            stats = self.simulate_neuron(neuron, N_iter, dt, NoisyConstInputCurrent(I = I, std=15))
+            firing_rates.append(1/stats.mean_interspike_int if stats.mean_interspike_int != 0 else 0)
         return firing_rates
 

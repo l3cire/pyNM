@@ -15,16 +15,13 @@ sns.set_theme(style="ticks",
               },
               )
 
-neuron_hh = HHNeuron()
 neuron_lif = LIFNeuron()
 model = NeuralModel()
 I = np.linspace(0, 30, 100)
-f_hh = model.get_fi_curve(neuron_hh, I)
 f_lif = model.get_fi_curve(neuron_lif, I)
 
 fig, ax = plt.subplots(1, 1, figsize=(10, 3))
 assert isinstance(ax, Axes)
-ax.plot(I, f_hh, label = 'Hodgkin and Huxley')
 ax.plot(I, f_lif, label = 'Leaky Integrate and Fire')
 ax.set_title('Dynamics with $I_{ext} = 10$')
 ax.set_xlabel('Time (ms)')

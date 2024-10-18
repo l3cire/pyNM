@@ -1,5 +1,5 @@
 from pyneural import NeuralModel
-from pyneural.input_current import ConstInputCurrent
+from pyneural.input_current import ConstInputCurrent, NoisyConstInputCurrent
 from pyneural.neuron_models import LIFNeuron
 from matplotlib import pyplot as plt
 from matplotlib.axes import Axes
@@ -15,14 +15,18 @@ sns.set_theme(style="ticks",
               )
 
 neuron = LIFNeuron()
-I_ext = ConstInputCurrent(75, 127, 25)
-stats = NeuralModel().simulate_neuron(neuron, 20000, 0.01, I_ext)
+I_ext = NoisyConstInputCurrent(I=20, std=15)
+stats = NeuralModel().simulate_neuron(neuron, 100000, 0.01, I_ext)
 
-fig, ax = plt.subplots(1, 1, figsize=(10, 3))
-assert isinstance(ax, Axes)
-ax.plot([x.T for x in stats.step_data], [x.Vm for x in stats.step_data])
-ax.set_title('Dynamics with $I_{ext} = 10$')
-ax.set_xlabel('Time (ms)')
-ax.set_ylabel('Membrane potential V (mV)')
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 4))
+
+assert isinstance(ax1, Axes)
+ax1.plot([x.T for x in stats.step_data], [x.Vm for x in stats.step_data], color='b')
+ax1.set_ylabel("Membrane Potential (mV)")
+
+assert isinstance(ax2, Axes)
+ax2.plot([stats.step_data[i].T for i in range(0, len(stats.step_data), 100)], [stats.step_data[i].I_ext for i in range(0, len(stats.step_data), 100)], color='r')
+ax2.set_ylabel("External Current (µA/cm²)")
+
 plt.show()
 

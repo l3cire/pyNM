@@ -1,5 +1,5 @@
 from pyneural import NeuralModel
-from pyneural.input_current import ConstInputCurrent
+from pyneural.input_current import ConstInputCurrent, NoisyConstInputCurrent
 from pyneural.neuron_models import HHNeuron
 from matplotlib import pyplot as plt
 from matplotlib.axes import Axes
@@ -15,8 +15,8 @@ sns.set_theme(style="ticks",
               )
 
 neuron = HHNeuron()
-I_ext = ConstInputCurrent(75, 125, 10)
-stats = NeuralModel().simulate_neuron(neuron, 20000, 0.01, I_ext)
+I_ext = NoisyConstInputCurrent(I=5, std=10)
+stats = NeuralModel().simulate_neuron(neuron, 100000, 0.01, I_ext)
 
 plt.figure(figsize=(10, 8))
 
@@ -27,7 +27,7 @@ ax1.set_ylabel("Membrane Potential (mV)")
 
 ax2 = plt.subplot(412)
 assert isinstance(ax2, Axes)
-ax2.plot([x.T for x in stats.step_data], [x.I_ext for x in stats.step_data], color='r')
+ax2.plot([stats.step_data[i].T for i in range(0, len(stats.step_data), 100)], [stats.step_data[i].I_ext for i in range(0, len(stats.step_data), 100)], color='r')
 ax2.set_ylabel("External Current (µA/cm²)")
 
 ax3 = plt.subplot(413, sharex=ax1)

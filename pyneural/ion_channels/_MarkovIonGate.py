@@ -7,7 +7,7 @@ class MarkovIonGate:
     Markov ion gate models the probability of a particular gate within an ion channel being open as a Markov process. At each particular point in time, it computes the probability of a closed gate transitioning to open and open gate transitioning to closed, and uses that to update the overall probability of a particular gate being open at this point in time. Used in a Hodgkin-Huxley model.
 
     Attributes:
-        state: probability of the gate being open (alternatively, a fraction of open gates of this type).
+        state: numpy array containing probabilities of the gate being open for each neuron (alternatively, a fraction of open gates of this type in each neuron).
     """
     state: np.ndarray = np.array([])
 
@@ -15,9 +15,10 @@ class MarkovIonGate:
         """
         Initialize a new Markov ion gate.
 
-        :param alpha: a function that maps current membrane potential in mV to the probability of the gate transitioning from closed to open.
-        :param beta: a function that maps current mambrane potantial in mV to the probability of the gate transitioning from open to closed. 
-        :param v_init: initial membrane potantial at stability.
+        :param N_neurons: number of neurons in a simulation.
+        :param alpha: a function that maps current membrane potentials of all neurons in mV to the probabilities of the gate transitioning from closed to open in each neuron.
+        :param beta: a function that maps current mambrane potantial of all neurons in mV to the probabilities of the gate transitioning from open to closed in each neuron. 
+        :param V_init: initial membrane potantial (relative to the resting potential) at stability for each neuron (zero by default).
         """
         self.N_neurons = N_neurons
         self._alpha = alpha
@@ -32,7 +33,7 @@ class MarkovIonGate:
         """
         Set the state to the stable value at a given membrane potential.
 
-        :param v: membrane potential in mV.
+        :param V: numpy array containing membrane potentials for each neuron in mV.
         """
         if V == None:
             self.state = np.zeros(self.N_neurons) + self.rest_val
@@ -43,7 +44,8 @@ class MarkovIonGate:
         """
         Update the state given current membrane potential.
 
-        :param v: membrane potential in mV.
-        :param dt: time interval between two consecutive updates in mV.
+        :param V: numpy array containing membrane potentials for each neuron in mV.
+        :param dt: time interval between two consecutive updates in ms.
         """
         self.state += (self._alpha(V) * (1 - self.state) - self._beta(V) * self.state) * dt
+

@@ -14,7 +14,7 @@ class NeuronGroup(ABC):
         """
         Initialize a new neuron.
 
-        :param N: number of neurons in a group.
+        :param N_neurons: number of neurons in a group.
         :param params['V_rest']: resting potential in mV (-70.0 by default).
         :param params['V']: starting membrane potential for each cell in mV (by default, all initialized to be equal to the resting potential).
         :param params['V_threshold']: threshold voltage in mV (0.0 by default). This is the value of membrane potential that certainly generates a spike. Needed for spike detection.
@@ -30,7 +30,7 @@ class NeuronGroup(ABC):
         """
         Reset the neuron to the stable state. All ion channels are reset with respect to the membrane potential.
 
-        :param V: new membrane potential in mV. If not specified, is set to the resting potential.
+        :param V: numpy array containing new membrane potentials for each neuron in mV. If not specified, neurons are set to the resting potential.
         """
 
         if not V:

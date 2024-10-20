@@ -58,9 +58,6 @@
                                 <a class="variable" href="#NeuronStepStatistics.I_Na">I_Na</a>
                         </li>
                         <li>
-                                <a class="variable" href="#NeuronStepStatistics.g_m">g_m</a>
-                        </li>
-                        <li>
                                 <a class="variable" href="#NeuronStepStatistics.g_leak">g_leak</a>
                         </li>
                         <li>
@@ -68,9 +65,6 @@
                         </li>
                         <li>
                                 <a class="variable" href="#NeuronStepStatistics.g_Na">g_Na</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#NeuronStepStatistics.spiked">spiked</a>
                         </li>
                         <li>
                                 <a class="variable" href="#NeuronStepStatistics.gate_n">gate_n</a>
@@ -91,7 +85,7 @@
                                 <a class="function" href="#NeuronStatistics.__init__">NeuronStatistics</a>
                         </li>
                         <li>
-                                <a class="variable" href="#NeuronStatistics.N">N</a>
+                                <a class="variable" href="#NeuronStatistics.N_steps">N_steps</a>
                         </li>
                         <li>
                                 <a class="variable" href="#NeuronStatistics.dt">dt</a>
@@ -145,14 +139,14 @@
     </div>
     <a class="headerlink" href="#NeuronStepStatistics"></a>
     
-            <div class="docstring"><p>This is the data class for storing an information about a single step of a simulation of a neuron.</p>
+            <div class="docstring"><p>This is the data class for storing an information about a single step of a simulation of group of neurons.</p>
 </div>
 
 
                             <div id="NeuronStepStatistics.__init__" class="classattr">
                                 <div class="attr function">
             
-        <span class="name">NeuronStepStatistics</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">Vm</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>,</span><span class="param">	<span class="n">T</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>,</span><span class="param">	<span class="n">I_total</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>,</span><span class="param">	<span class="n">I_ext</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>,</span><span class="param">	<span class="n">I_leak</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">I_K</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">I_Na</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">g_m</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>,</span><span class="param">	<span class="n">g_leak</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">g_K</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">g_Na</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">spiked</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>,</span><span class="param">	<span class="n">gate_n</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">gate_m</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">gate_h</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
+        <span class="name">NeuronStepStatistics</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">Vm</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float64</span><span class="p">)</span>,</span><span class="param">	<span class="n">T</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>,</span><span class="param">	<span class="n">I_total</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float64</span><span class="p">)</span>,</span><span class="param">	<span class="n">I_ext</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float64</span><span class="p">)</span>,</span><span class="param">	<span class="n">I_leak</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">I_K</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">I_Na</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">g_leak</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">g_K</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">g_Na</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">gate_n</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">gate_m</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">gate_h</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
 
         
     </div>
@@ -163,14 +157,14 @@
                             </div>
                             <div id="NeuronStepStatistics.Vm" class="classattr">
                                 <div class="attr variable">
-            <span class="name">Vm</span><span class="annotation">: float</span>        =
-<span class="default_value">0.0</span>
+            <span class="name">Vm</span><span class="annotation">: numpy.ndarray</span>        =
+<span class="default_value">array([], dtype=float64)</span>
 
         
     </div>
     <a class="headerlink" href="#NeuronStepStatistics.Vm"></a>
     
-            <div class="docstring"><p>Membrane potential in mV.</p>
+            <div class="docstring"><p>Membrane potential for each neuron in mV.</p>
 </div>
 
 
@@ -191,182 +185,154 @@
                             </div>
                             <div id="NeuronStepStatistics.I_total" class="classattr">
                                 <div class="attr variable">
-            <span class="name">I_total</span><span class="annotation">: float</span>        =
-<span class="default_value">0.0</span>
+            <span class="name">I_total</span><span class="annotation">: numpy.ndarray</span>        =
+<span class="default_value">array([], dtype=float64)</span>
 
         
     </div>
     <a class="headerlink" href="#NeuronStepStatistics.I_total"></a>
     
-            <div class="docstring"><p>Total Current through a membrane in nA.</p>
+            <div class="docstring"><p>Total current through a membrane for each neuron in nA.</p>
 </div>
 
 
                             </div>
                             <div id="NeuronStepStatistics.I_ext" class="classattr">
                                 <div class="attr variable">
-            <span class="name">I_ext</span><span class="annotation">: float</span>        =
-<span class="default_value">0.0</span>
+            <span class="name">I_ext</span><span class="annotation">: numpy.ndarray</span>        =
+<span class="default_value">array([], dtype=float64)</span>
 
         
     </div>
     <a class="headerlink" href="#NeuronStepStatistics.I_ext"></a>
     
-            <div class="docstring"><p>External current stimulation in nA.</p>
+            <div class="docstring"><p>External current stimulation for each neuron in nA.</p>
 </div>
 
 
                             </div>
                             <div id="NeuronStepStatistics.I_leak" class="classattr">
                                 <div class="attr variable">
-            <span class="name">I_leak</span><span class="annotation">: Optional[float]</span>        =
+            <span class="name">I_leak</span><span class="annotation">: Optional[numpy.ndarray]</span>        =
 <span class="default_value">None</span>
 
         
     </div>
     <a class="headerlink" href="#NeuronStepStatistics.I_leak"></a>
     
-            <div class="docstring"><p>Leak current in nA. Only available for the Hodgkin-Huxley (HH) model.</p>
+            <div class="docstring"><p>Leak current for each neuron in nA. Only available for the Hodgkin-Huxley (HH) model.</p>
 </div>
 
 
                             </div>
                             <div id="NeuronStepStatistics.I_K" class="classattr">
                                 <div class="attr variable">
-            <span class="name">I_K</span><span class="annotation">: Optional[float]</span>        =
+            <span class="name">I_K</span><span class="annotation">: Optional[numpy.ndarray]</span>        =
 <span class="default_value">None</span>
 
         
     </div>
     <a class="headerlink" href="#NeuronStepStatistics.I_K"></a>
     
-            <div class="docstring"><p>Potassium current in nA. Only available for the Hodgkin-Huxley (HH) model.</p>
+            <div class="docstring"><p>Potassium current for each neuron in nA. Only available for the Hodgkin-Huxley (HH) model.</p>
 </div>
 
 
                             </div>
                             <div id="NeuronStepStatistics.I_Na" class="classattr">
                                 <div class="attr variable">
-            <span class="name">I_Na</span><span class="annotation">: Optional[float]</span>        =
+            <span class="name">I_Na</span><span class="annotation">: Optional[numpy.ndarray]</span>        =
 <span class="default_value">None</span>
 
         
     </div>
     <a class="headerlink" href="#NeuronStepStatistics.I_Na"></a>
     
-            <div class="docstring"><p>Sodium current in nA. Only available for the Hodgkin-Huxley (HH) model.</p>
-</div>
-
-
-                            </div>
-                            <div id="NeuronStepStatistics.g_m" class="classattr">
-                                <div class="attr variable">
-            <span class="name">g_m</span><span class="annotation">: float</span>        =
-<span class="default_value">0.0</span>
-
-        
-    </div>
-    <a class="headerlink" href="#NeuronStepStatistics.g_m"></a>
-    
-            <div class="docstring"><p>Total membrane conductance.</p>
+            <div class="docstring"><p>Sodium current for each neuron in nA. Only available for the Hodgkin-Huxley (HH) model.</p>
 </div>
 
 
                             </div>
                             <div id="NeuronStepStatistics.g_leak" class="classattr">
                                 <div class="attr variable">
-            <span class="name">g_leak</span><span class="annotation">: Optional[float]</span>        =
+            <span class="name">g_leak</span><span class="annotation">: Optional[numpy.ndarray]</span>        =
 <span class="default_value">None</span>
 
         
     </div>
     <a class="headerlink" href="#NeuronStepStatistics.g_leak"></a>
     
-            <div class="docstring"><p>Leak conductance. Only available for the Hodgkin-Huxley (HH) model.</p>
+            <div class="docstring"><p>Leak conductance for each neuron. Only available for the Hodgkin-Huxley (HH) model.</p>
 </div>
 
 
                             </div>
                             <div id="NeuronStepStatistics.g_K" class="classattr">
                                 <div class="attr variable">
-            <span class="name">g_K</span><span class="annotation">: Optional[float]</span>        =
+            <span class="name">g_K</span><span class="annotation">: Optional[numpy.ndarray]</span>        =
 <span class="default_value">None</span>
 
         
     </div>
     <a class="headerlink" href="#NeuronStepStatistics.g_K"></a>
     
-            <div class="docstring"><p>Potassium conductance. Only available for the Hodgkin-Huxley (HH) model.</p>
+            <div class="docstring"><p>Potassium conductance for each neuron. Only available for the Hodgkin-Huxley (HH) model.</p>
 </div>
 
 
                             </div>
                             <div id="NeuronStepStatistics.g_Na" class="classattr">
                                 <div class="attr variable">
-            <span class="name">g_Na</span><span class="annotation">: Optional[float]</span>        =
+            <span class="name">g_Na</span><span class="annotation">: Optional[numpy.ndarray]</span>        =
 <span class="default_value">None</span>
 
         
     </div>
     <a class="headerlink" href="#NeuronStepStatistics.g_Na"></a>
     
-            <div class="docstring"><p>Sodium conductance. Only available for the Hodgkin-Huxley (HH) model.</p>
-</div>
-
-
-                            </div>
-                            <div id="NeuronStepStatistics.spiked" class="classattr">
-                                <div class="attr variable">
-            <span class="name">spiked</span><span class="annotation">: bool</span>        =
-<span class="default_value">False</span>
-
-        
-    </div>
-    <a class="headerlink" href="#NeuronStepStatistics.spiked"></a>
-    
-            <div class="docstring"><p>Whether or not there was a spike at this step.</p>
+            <div class="docstring"><p>Sodium conductance for each neuron. Only available for the Hodgkin-Huxley (HH) model.</p>
 </div>
 
 
                             </div>
                             <div id="NeuronStepStatistics.gate_n" class="classattr">
                                 <div class="attr variable">
-            <span class="name">gate_n</span><span class="annotation">: Optional[float]</span>        =
+            <span class="name">gate_n</span><span class="annotation">: Optional[numpy.ndarray]</span>        =
 <span class="default_value">None</span>
 
         
     </div>
     <a class="headerlink" href="#NeuronStepStatistics.gate_n"></a>
     
-            <div class="docstring"><p>State of the n gates of the potassium channel. Only available for the Hodgkin-Huxley (HH) model.</p>
+            <div class="docstring"><p>State of the n gates of the potassium channel for each neuron. Only available for the Hodgkin-Huxley (HH) model.</p>
 </div>
 
 
                             </div>
                             <div id="NeuronStepStatistics.gate_m" class="classattr">
                                 <div class="attr variable">
-            <span class="name">gate_m</span><span class="annotation">: Optional[float]</span>        =
+            <span class="name">gate_m</span><span class="annotation">: Optional[numpy.ndarray]</span>        =
 <span class="default_value">None</span>
 
         
     </div>
     <a class="headerlink" href="#NeuronStepStatistics.gate_m"></a>
     
-            <div class="docstring"><p>State of the m gates of the sodium channel. Only available for the Hodgkin-Huxley (HH) model.</p>
+            <div class="docstring"><p>State of the m gates of the sodium channel for each neuron. Only available for the Hodgkin-Huxley (HH) model.</p>
 </div>
 
 
                             </div>
                             <div id="NeuronStepStatistics.gate_h" class="classattr">
                                 <div class="attr variable">
-            <span class="name">gate_h</span><span class="annotation">: Optional[float]</span>        =
+            <span class="name">gate_h</span><span class="annotation">: Optional[numpy.ndarray]</span>        =
 <span class="default_value">None</span>
 
         
     </div>
     <a class="headerlink" href="#NeuronStepStatistics.gate_h"></a>
     
-            <div class="docstring"><p>State of the h gates of the sodium hannel. Only available for the Hodgkin-Huxley (HH) model.</p>
+            <div class="docstring"><p>State of the h gates of the sodium channel for each neuron. Only available for the Hodgkin-Huxley (HH) model.</p>
 </div>
 
 
@@ -382,14 +348,14 @@
     </div>
     <a class="headerlink" href="#NeuronStatistics"></a>
     
-            <div class="docstring"><p>This class contains the information about the whole simulation for a single neuron.</p>
+            <div class="docstring"><p>This class contains the information about the whole simulation for a group of neurons.</p>
 </div>
 
 
                             <div id="NeuronStatistics.__init__" class="classattr">
                                 <div class="attr function">
             
-        <span class="name">NeuronStatistics</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">N</span><span class="p">:</span> <span class="nb">int</span>, </span><span class="param"><span class="n">dt</span><span class="p">:</span> <span class="nb">float</span></span>)</span>
+        <span class="name">NeuronStatistics</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">N_steps</span><span class="p">:</span> <span class="nb">int</span>, </span><span class="param"><span class="n">dt</span><span class="p">:</span> <span class="nb">float</span></span>)</span>
 
         
     </div>
@@ -400,20 +366,20 @@
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>N</strong>:  number of simulation steps.</li>
+<li><strong>N_steps</strong>:  number of simulation steps.</li>
 <li><strong>dt</strong>:  time interval between consecutive steps.</li>
 </ul>
 </div>
 
 
                             </div>
-                            <div id="NeuronStatistics.N" class="classattr">
+                            <div id="NeuronStatistics.N_steps" class="classattr">
                                 <div class="attr variable">
-            <span class="name">N</span><span class="annotation">: int</span>
+            <span class="name">N_steps</span>
 
         
     </div>
-    <a class="headerlink" href="#NeuronStatistics.N"></a>
+    <a class="headerlink" href="#NeuronStatistics.N_steps"></a>
     
             <div class="docstring"><p>The number of simulation steps.</p>
 </div>
@@ -422,7 +388,7 @@
                             </div>
                             <div id="NeuronStatistics.dt" class="classattr">
                                 <div class="attr variable">
-            <span class="name">dt</span><span class="annotation">: float</span>
+            <span class="name">dt</span>
 
         
     </div>
@@ -435,8 +401,7 @@
                             </div>
                             <div id="NeuronStatistics.step_data" class="classattr">
                                 <div class="attr variable">
-            <span class="name">step_data</span><span class="annotation">: list[<a href="#NeuronStepStatistics">NeuronStepStatistics</a>]</span>        =
-<span class="default_value">[]</span>
+            <span class="name">step_data</span><span class="annotation">: list[<a href="#NeuronStepStatistics">NeuronStepStatistics</a>]</span>
 
         
     </div>
@@ -449,42 +414,39 @@
                             </div>
                             <div id="NeuronStatistics.spikes" class="classattr">
                                 <div class="attr variable">
-            <span class="name">spikes</span><span class="annotation">: list[int]</span>        =
-<span class="default_value">[]</span>
+            <span class="name">spikes</span><span class="annotation">: list[numpy.ndarray]</span>
 
         
     </div>
     <a class="headerlink" href="#NeuronStatistics.spikes"></a>
     
-            <div class="docstring"><p>The list containding the indices of steps where spikes occured.</p>
+            <div class="docstring"><p>The list containding the numpy arrays of steps where spikes occured for each neuron.</p>
 </div>
 
 
                             </div>
                             <div id="NeuronStatistics.spike_intervals" class="classattr">
                                 <div class="attr variable">
-            <span class="name">spike_intervals</span><span class="annotation">: list[float]</span>        =
-<span class="default_value">[]</span>
+            <span class="name">spike_intervals</span><span class="annotation">: list[numpy.ndarray]</span>
 
         
     </div>
     <a class="headerlink" href="#NeuronStatistics.spike_intervals"></a>
     
-            <div class="docstring"><p>The list containting the interspike intervals in ms.</p>
+            <div class="docstring"><p>The list containting the numpy arrays of interspike intervals for each neuron in ms.</p>
 </div>
 
 
                             </div>
                             <div id="NeuronStatistics.mean_interspike_int" class="classattr">
                                 <div class="attr variable">
-            <span class="name">mean_interspike_int</span><span class="annotation">: float</span>        =
-<span class="default_value">0</span>
+            <span class="name">mean_interspike_int</span><span class="annotation">: list[float]</span>
 
         
     </div>
     <a class="headerlink" href="#NeuronStatistics.mean_interspike_int"></a>
     
-            <div class="docstring"><p>The mean interspike interval (0 if none).</p>
+            <div class="docstring"><p>The list containing mean interspike intervals for each neuron (0 if none).</p>
 </div>
 
 

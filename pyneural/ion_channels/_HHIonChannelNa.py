@@ -9,15 +9,16 @@ class HHIonChannelNa(IonChannel):
     Sodium ion channel for the Hodgkin-Huxley model. Models the channel as 4 consequtive Markov ion gates (3 m gates and 1 h gate) that all have to be open for the channel to let potassium ions through.
 
     Attributes:
-        g: ion channel conductance.
+        g: ion channel conductance for each neuron.
     """
 
     def __init__(self, N_neurons: int, gNa: float, V_init: Optional[np.ndarray]=None):
         """
-        Initialize a new sodium ion channel.
+        Initialize a new sodium ion channel for a set of neurons.
 
-        :param gNa: conductance of sodium channels when all ion gates are open (maximum conductance).
-        :param v_init: initial membrane potential (relative to resting potential) at stability in mV
+        :param N_neurons: number of neurons in a simulation.
+        :param gNa: conductance of sodium channels in a single neuron when all ion gates are open (maximum conductance).
+        :param V_init: numpy array containing initial membrane potentials (relative to resting potential) for each neuron at stability in mV (zero by default).
         """
 
         self._m_gate = MarkovIonGate(N_neurons,

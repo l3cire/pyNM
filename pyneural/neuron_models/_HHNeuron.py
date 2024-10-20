@@ -11,7 +11,7 @@ class HHNeuronGroup(NeuronGroup):
 
     def __init__(self, N_neurons: int, params: dict = {}):
         """
-        Initialize a new neuron.
+        Initialize a new group of Hodgkin-Huxley neurons.
 
         Apart from parameters specified in the base class `pyneural.neuron_models.Neuron`, this class requires additional parameters to specify conductances:
         :param params['gL']: leak ion channels conductance (0.3 by default).

@@ -11,7 +11,7 @@ class NoisyConstInputCurrent(ConstInputCurrent):
 
     def __init__(self, N_neurons: int = 1, start_time: float = 0, end_time: float = np.inf, I: float = 0, std: float = 0):
         """
-        Initialize a new input current object. Apart from its superclass parameters, takes one additional argument:
+        Initialize a new noisy input current object. Apart from its superclass parameters, takes one additional argument:
 
         :param std: standard deviation of the noisy current. Often should be normalized by a time interval between updates of a system (e.g. std^2 should be proportional to tau/dt).
         """
@@ -21,7 +21,7 @@ class NoisyConstInputCurrent(ConstInputCurrent):
 
     def get_current(self, t: float) -> np.ndarray:
         if(t >= self._start_time and t <= self._end_time):
-            return np.random.normal(self._I, self._std, self.N)
+            return np.random.normal(self._I, self._std, self.N_neurons)
 
-        return np.zeros(self.N)
+        return np.zeros(self.N_neurons)
         

@@ -31,73 +31,64 @@
             <h2>API Documentation</h2>
                 <ul class="memberlist">
             <li>
-                    <a class="class" href="#Neuron">Neuron</a>
+                    <a class="class" href="#NeuronGroup">NeuronGroup</a>
                             <ul class="memberlist">
                         <li>
-                                <a class="function" href="#Neuron.__init__">Neuron</a>
+                                <a class="function" href="#NeuronGroup.__init__">NeuronGroup</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Neuron.I_ext">I_ext</a>
+                                <a class="variable" href="#NeuronGroup.N_neurons">N_neurons</a>
                         </li>
                         <li>
-                                <a class="function" href="#Neuron.reset">reset</a>
+                                <a class="function" href="#NeuronGroup.reset">reset</a>
                         </li>
                         <li>
-                                <a class="function" href="#Neuron.step">step</a>
+                                <a class="function" href="#NeuronGroup.step">step</a>
                         </li>
                 </ul>
 
             </li>
             <li>
-                    <a class="class" href="#ConstCondNeuron">ConstCondNeuron</a>
+                    <a class="class" href="#ConstCondNeuronGroup">ConstCondNeuronGroup</a>
                             <ul class="memberlist">
                         <li>
-                                <a class="function" href="#ConstCondNeuron.__init__">ConstCondNeuron</a>
+                                <a class="function" href="#ConstCondNeuronGroup.__init__">ConstCondNeuronGroup</a>
                         </li>
                         <li>
-                                <a class="variable" href="#ConstCondNeuron.I_ext">I_ext</a>
+                                <a class="function" href="#ConstCondNeuronGroup.step">step</a>
                         </li>
                         <li>
-                                <a class="function" href="#ConstCondNeuron.step">step</a>
-                        </li>
-                        <li>
-                                <a class="function" href="#ConstCondNeuron.reset">reset</a>
+                                <a class="function" href="#ConstCondNeuronGroup.reset">reset</a>
                         </li>
                 </ul>
 
             </li>
             <li>
-                    <a class="class" href="#LIFNeuron">LIFNeuron</a>
+                    <a class="class" href="#LIFNeuronGroup">LIFNeuronGroup</a>
                             <ul class="memberlist">
                         <li>
-                                <a class="function" href="#LIFNeuron.__init__">LIFNeuron</a>
+                                <a class="function" href="#LIFNeuronGroup.__init__">LIFNeuronGroup</a>
                         </li>
                         <li>
-                                <a class="variable" href="#LIFNeuron.I_ext">I_ext</a>
+                                <a class="function" href="#LIFNeuronGroup.step">step</a>
                         </li>
                         <li>
-                                <a class="function" href="#LIFNeuron.step">step</a>
-                        </li>
-                        <li>
-                                <a class="function" href="#LIFNeuron.reset">reset</a>
+                                <a class="function" href="#LIFNeuronGroup.reset">reset</a>
                         </li>
                 </ul>
 
             </li>
             <li>
-                    <a class="class" href="#HHNeuron">HHNeuron</a>
+                    <a class="class" href="#HHNeuronGroup">HHNeuronGroup</a>
                             <ul class="memberlist">
                         <li>
-                                <a class="function" href="#HHNeuron.__init__">HHNeuron</a>
+                                <a class="function" href="#HHNeuronGroup.__init__">HHNeuronGroup</a>
                         </li>
                         <li>
-                                <a class="variable" href="#HHNeuron.I_ext">I_ext</a>
+                                <a class="function" href="#HHNeuronGroup.step">step</a>
                         </li>
                         <li>
-                                <a class="function" href="#HHNeuron.step">step</a>
-                        </li>
-                        <li>
-                                <a class="function" href="#HHNeuron.reset">reset</a>
+                                <a class="function" href="#HHNeuronGroup.reset">reset</a>
                         </li>
                 </ul>
 
@@ -118,43 +109,44 @@
                     <h1 class="modulename">
 <a href="./../pyneural.html">pyneural</a><wbr>.neuron_models    </h1>
 
-                        <div class="docstring"><p>This module contains models for a single neuron. All of them are inherited from an abstract base class <code><a href="#Neuron">pyneural.neural_models.Neuron</a></code>.</p>
+                        <div class="docstring"><p>This module contains models for a single neuron. All of them are inherited from an abstract base class <code><a href="#NeuronGroup">pyneural.neural_models.NeuronGroup</a></code>.</p>
 </div>
 
                 
                 
                 
             </section>
-                <section id="Neuron">
+                <section id="NeuronGroup">
                     <div class="attr class">
             
     <span class="def">class</span>
-    <span class="name">Neuron</span><wbr>(<span class="base">abc.ABC</span>):
+    <span class="name">NeuronGroup</span><wbr>(<span class="base">abc.ABC</span>):
 
         
     </div>
-    <a class="headerlink" href="#Neuron"></a>
+    <a class="headerlink" href="#NeuronGroup"></a>
     
-            <div class="docstring"><p>A base class for models of a single neuron, which specifies the main parameters of any neuron cell.</p>
+            <div class="docstring"><p>A base class for models of a group of independent neurons, which specifies the main parameters of any neuron cell.</p>
 </div>
 
 
-                            <div id="Neuron.__init__" class="classattr">
+                            <div id="NeuronGroup.__init__" class="classattr">
                                 <div class="attr function">
             
-        <span class="name">Neuron</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span></span>)</span>
+        <span class="name">NeuronGroup</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">N_neurons</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>, </span><span class="param"><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span></span>)</span>
 
         
     </div>
-    <a class="headerlink" href="#Neuron.__init__"></a>
+    <a class="headerlink" href="#NeuronGroup.__init__"></a>
     
             <div class="docstring"><p>Initialize a new neuron.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
+<li><strong>N_neurons</strong>:  number of neurons in a group.</li>
 <li><strong>params['V_rest']</strong>:  resting potential in mV (-70.0 by default).</li>
-<li><strong>params['V']</strong>:  starting membrane potential in mV (-70.0 by default).</li>
+<li><strong>params['V']</strong>:  starting membrane potential for each cell in mV (by default, all initialized to be equal to the resting potential).</li>
 <li><strong>params['V_threshold']</strong>:  threshold voltage in mV (0.0 by default). This is the value of membrane potential that certainly generates a spike. Needed for spike detection.
 Note that the conductances of ion channels are not specidied in the base class constructor since they differ in different models.</li>
 </ul>
@@ -162,57 +154,55 @@ Note that the conductances of ion channels are not specidied in the base class c
 
 
                             </div>
-                            <div id="Neuron.I_ext" class="classattr">
+                            <div id="NeuronGroup.N_neurons" class="classattr">
                                 <div class="attr variable">
-            <span class="name">I_ext</span><span class="annotation">: float</span>        =
-<span class="default_value">0.0</span>
+            <span class="name">N_neurons</span><span class="annotation">: int</span>
 
         
     </div>
-    <a class="headerlink" href="#Neuron.I_ext"></a>
+    <a class="headerlink" href="#NeuronGroup.N_neurons"></a>
     
-            <div class="docstring"><p>External current stimulation in mA. Typically between 0 and 50. The variation in current is usually caused by other neurons connected to the current one by synnapses.</p>
-</div>
-
+    
 
                             </div>
-                            <div id="Neuron.reset" class="classattr">
+                            <div id="NeuronGroup.reset" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">reset</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">V</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">):</span></span>
+        <span class="name">reset</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">V</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">):</span></span>
 
         
     </div>
-    <a class="headerlink" href="#Neuron.reset"></a>
+    <a class="headerlink" href="#NeuronGroup.reset"></a>
     
             <div class="docstring"><p>Reset the neuron to the stable state. All ion channels are reset with respect to the membrane potential.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>V</strong>:  new membrane potential in mV. If not specified, is set to the resting potential.</li>
+<li><strong>V</strong>:  numpy array containing new membrane potentials for each neuron in mV. If not specified, neurons are set to the resting potential.</li>
 </ul>
 </div>
 
 
                             </div>
-                            <div id="Neuron.step" class="classattr">
+                            <div id="NeuronGroup.step" class="classattr">
                                 <div class="attr function">
                     <div class="decorator decorator-abstractmethod">@abstractmethod</div>
 
         <span class="def">def</span>
-        <span class="name">step</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">t</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">dt</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">) -> <span class="n"><a href="statistics.html#NeuronStepStatistics">pyneural.statistics.NeuronStepStatistics</a></span>:</span></span>
+        <span class="name">step</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">I_ext</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>,</span><span class="param">	<span class="n">t</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">dt</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">) -> <span class="n"><a href="statistics.html#NeuronStepStatistics">pyneural.statistics.NeuronStepStatistics</a></span>:</span></span>
 
         
     </div>
-    <a class="headerlink" href="#Neuron.step"></a>
+    <a class="headerlink" href="#NeuronGroup.step"></a>
     
             <div class="docstring"><p>Perform one step of a simulation. Returns a <code><a href="statistics.html#NeuronStepStatistics">pyneural.statistics.NeuronStepStatistics</a></code> object.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
+<li><strong>I_ext</strong>:  external stimulation for each neuron cell.</li>
 <li><strong>t</strong>:  current time in ms.</li>
 <li><strong>dt</strong>:  time between two consecutive simulation steps in ms.</li>
 </ul>
@@ -221,32 +211,32 @@ Note that the conductances of ion channels are not specidied in the base class c
 
                             </div>
                 </section>
-                <section id="ConstCondNeuron">
+                <section id="ConstCondNeuronGroup">
                     <div class="attr class">
             
     <span class="def">class</span>
-    <span class="name">ConstCondNeuron</span><wbr>(<span class="base"><a href="#Neuron">pyneural.neuron_models.Neuron</a></span>):
+    <span class="name">ConstCondNeuronGroup</span><wbr>(<span class="base"><a href="#NeuronGroup">pyneural.neuron_models.NeuronGroup</a></span>):
 
         
     </div>
-    <a class="headerlink" href="#ConstCondNeuron"></a>
+    <a class="headerlink" href="#ConstCondNeuronGroup"></a>
     
             <div class="docstring"><p>A neuron with constant conductance for each ion channel type.</p>
 </div>
 
 
-                            <div id="ConstCondNeuron.__init__" class="classattr">
+                            <div id="ConstCondNeuronGroup.__init__" class="classattr">
                                 <div class="attr function">
             
-        <span class="name">ConstCondNeuron</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span></span>)</span>
+        <span class="name">ConstCondNeuronGroup</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">N_neurons</span><span class="p">:</span> <span class="nb">int</span>, </span><span class="param"><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span></span>)</span>
 
         
     </div>
-    <a class="headerlink" href="#ConstCondNeuron.__init__"></a>
+    <a class="headerlink" href="#ConstCondNeuronGroup.__init__"></a>
     
-            <div class="docstring"><p>Initialize a new neuron.</p>
+            <div class="docstring"><p>Initialize a new group of neurons with constaint conductance for each ion channel.</p>
 
-<p>Apart from parameters specified in the base class <code><a href="#Neuron">pyneural.neuron_models.Neuron</a></code>, this class requires additional parameters to specify conductances. There are two possible ways to specify a neuron. First one (preferred):</p>
+<p>Apart from parameters specified in the base class <code>pyneural.neuron_models.Neuron</code>, this class requires additional parameters to specify conductances. There are two possible ways to specify a neuron. First one (preferred):</p>
 
 <h6 id="parameters">Parameters</h6>
 
@@ -273,35 +263,22 @@ Note that the conductances of ion channels are not specidied in the base class c
 
 
                             </div>
-                            <div id="ConstCondNeuron.I_ext" class="classattr">
-                                <div class="attr variable">
-            <span class="name">I_ext</span><span class="annotation">: float</span>        =
-<span class="default_value">0.0</span>
-
-        
-    </div>
-    <a class="headerlink" href="#ConstCondNeuron.I_ext"></a>
-    
-            <div class="docstring"><p>External current stimulation in mA. Typically between 0 and 50. The variation in current is usually caused by other neurons connected to the current one by synnapses.</p>
-</div>
-
-
-                            </div>
-                            <div id="ConstCondNeuron.step" class="classattr">
+                            <div id="ConstCondNeuronGroup.step" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">step</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">t</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">dt</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">) -> <span class="n"><a href="statistics.html#NeuronStepStatistics">pyneural.statistics.NeuronStepStatistics</a></span>:</span></span>
+        <span class="name">step</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">I_ext</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>,</span><span class="param">	<span class="n">t</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">dt</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">) -> <span class="n"><a href="statistics.html#NeuronStepStatistics">pyneural.statistics.NeuronStepStatistics</a></span>:</span></span>
 
         
     </div>
-    <a class="headerlink" href="#ConstCondNeuron.step"></a>
+    <a class="headerlink" href="#ConstCondNeuronGroup.step"></a>
     
             <div class="docstring"><p>Perform one step of a simulation. Returns a <code><a href="statistics.html#NeuronStepStatistics">pyneural.statistics.NeuronStepStatistics</a></code> object.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
+<li><strong>I_ext</strong>:  external stimulation for each neuron cell.</li>
 <li><strong>t</strong>:  current time in ms.</li>
 <li><strong>dt</strong>:  time between two consecutive simulation steps in ms.</li>
 </ul>
@@ -309,54 +286,54 @@ Note that the conductances of ion channels are not specidied in the base class c
 
 
                             </div>
-                            <div id="ConstCondNeuron.reset" class="classattr">
+                            <div id="ConstCondNeuronGroup.reset" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">reset</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">V</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">):</span></span>
+        <span class="name">reset</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">V</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">):</span></span>
 
         
     </div>
-    <a class="headerlink" href="#ConstCondNeuron.reset"></a>
+    <a class="headerlink" href="#ConstCondNeuronGroup.reset"></a>
     
             <div class="docstring"><p>Reset the neuron to the stable state. All ion channels are reset with respect to the membrane potential.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>V</strong>:  new membrane potential in mV. If not specified, is set to the resting potential.</li>
+<li><strong>V</strong>:  numpy array containing new membrane potentials for each neuron in mV. If not specified, neurons are set to the resting potential.</li>
 </ul>
 </div>
 
 
                             </div>
                 </section>
-                <section id="LIFNeuron">
+                <section id="LIFNeuronGroup">
                     <div class="attr class">
             
     <span class="def">class</span>
-    <span class="name">LIFNeuron</span><wbr>(<span class="base"><a href="#ConstCondNeuron">pyneural.neuron_models.ConstCondNeuron</a></span>):
+    <span class="name">LIFNeuronGroup</span><wbr>(<span class="base"><a href="#ConstCondNeuronGroup">pyneural.neuron_models.ConstCondNeuronGroup</a></span>):
 
         
     </div>
-    <a class="headerlink" href="#LIFNeuron"></a>
+    <a class="headerlink" href="#LIFNeuronGroup"></a>
     
             <div class="docstring"><p>Implementation of the Leaky Integrate and Fire model of a neuron.</p>
 </div>
 
 
-                            <div id="LIFNeuron.__init__" class="classattr">
+                            <div id="LIFNeuronGroup.__init__" class="classattr">
                                 <div class="attr function">
             
-        <span class="name">LIFNeuron</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span></span>)</span>
+        <span class="name">LIFNeuronGroup</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">N_neurons</span><span class="p">:</span> <span class="nb">int</span>, </span><span class="param"><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span></span>)</span>
 
         
     </div>
-    <a class="headerlink" href="#LIFNeuron.__init__"></a>
+    <a class="headerlink" href="#LIFNeuronGroup.__init__"></a>
     
-            <div class="docstring"><p>Initialize a new neuron.</p>
+            <div class="docstring"><p>Initialize a new group of Leaky Integrate and Fire neuron.</p>
 
-<p>This model inherits from <code><a href="#ConstCondNeuron">pyneural.neuron_models.ConstCondNeuron</a></code>, since it also models conductances as constant. However, apart from parameters required for the base class, it need two additional parameters:</p>
+<p>This model inherits from <code>pyneural.neuron_models.ConstCondNeuron</code>, since it also models conductances as constant. However, apart from parameters required for the base class, it need two additional parameters:</p>
 
 <h6 id="parameters">Parameters</h6>
 
@@ -369,35 +346,22 @@ Note that the conductances of ion channels are not specidied in the base class c
 
 
                             </div>
-                            <div id="LIFNeuron.I_ext" class="classattr">
-                                <div class="attr variable">
-            <span class="name">I_ext</span><span class="annotation">: float</span>        =
-<span class="default_value">0.0</span>
-
-        
-    </div>
-    <a class="headerlink" href="#LIFNeuron.I_ext"></a>
-    
-            <div class="docstring"><p>External current stimulation in mA. Typically between 0 and 50. The variation in current is usually caused by other neurons connected to the current one by synnapses.</p>
-</div>
-
-
-                            </div>
-                            <div id="LIFNeuron.step" class="classattr">
+                            <div id="LIFNeuronGroup.step" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">step</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">t</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">dt</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">) -> <span class="n"><a href="statistics.html#NeuronStepStatistics">pyneural.statistics.NeuronStepStatistics</a></span>:</span></span>
+        <span class="name">step</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">I_ext</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>,</span><span class="param">	<span class="n">t</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">dt</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">) -> <span class="n"><a href="statistics.html#NeuronStepStatistics">pyneural.statistics.NeuronStepStatistics</a></span>:</span></span>
 
         
     </div>
-    <a class="headerlink" href="#LIFNeuron.step"></a>
+    <a class="headerlink" href="#LIFNeuronGroup.step"></a>
     
             <div class="docstring"><p>Perform one step of a simulation. Returns a <code><a href="statistics.html#NeuronStepStatistics">pyneural.statistics.NeuronStepStatistics</a></code> object.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
+<li><strong>I_ext</strong>:  external stimulation for each neuron cell.</li>
 <li><strong>t</strong>:  current time in ms.</li>
 <li><strong>dt</strong>:  time between two consecutive simulation steps in ms.</li>
 </ul>
@@ -405,54 +369,54 @@ Note that the conductances of ion channels are not specidied in the base class c
 
 
                             </div>
-                            <div id="LIFNeuron.reset" class="classattr">
+                            <div id="LIFNeuronGroup.reset" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">reset</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">V</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">):</span></span>
+        <span class="name">reset</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">V</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">):</span></span>
 
         
     </div>
-    <a class="headerlink" href="#LIFNeuron.reset"></a>
+    <a class="headerlink" href="#LIFNeuronGroup.reset"></a>
     
             <div class="docstring"><p>Reset the neuron to the stable state. All ion channels are reset with respect to the membrane potential.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>V</strong>:  new membrane potential in mV. If not specified, is set to the resting potential.</li>
+<li><strong>V</strong>:  numpy array containing new membrane potentials for each neuron in mV. If not specified, neurons are set to the resting potential.</li>
 </ul>
 </div>
 
 
                             </div>
                 </section>
-                <section id="HHNeuron">
+                <section id="HHNeuronGroup">
                     <div class="attr class">
             
     <span class="def">class</span>
-    <span class="name">HHNeuron</span><wbr>(<span class="base"><a href="#Neuron">pyneural.neuron_models.Neuron</a></span>):
+    <span class="name">HHNeuronGroup</span><wbr>(<span class="base"><a href="#NeuronGroup">pyneural.neuron_models.NeuronGroup</a></span>):
 
         
     </div>
-    <a class="headerlink" href="#HHNeuron"></a>
+    <a class="headerlink" href="#HHNeuronGroup"></a>
     
             <div class="docstring"><p>Implementation of the Hodgkin-Huxley model of a neuron.</p>
 </div>
 
 
-                            <div id="HHNeuron.__init__" class="classattr">
+                            <div id="HHNeuronGroup.__init__" class="classattr">
                                 <div class="attr function">
             
-        <span class="name">HHNeuron</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span></span>)</span>
+        <span class="name">HHNeuronGroup</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">N_neurons</span><span class="p">:</span> <span class="nb">int</span>, </span><span class="param"><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span></span>)</span>
 
         
     </div>
-    <a class="headerlink" href="#HHNeuron.__init__"></a>
+    <a class="headerlink" href="#HHNeuronGroup.__init__"></a>
     
-            <div class="docstring"><p>Initialize a new neuron.</p>
+            <div class="docstring"><p>Initialize a new group of Hodgkin-Huxley neurons.</p>
 
-<p>Apart from parameters specified in the base class <code><a href="#Neuron">pyneural.neuron_models.Neuron</a></code>, this class requires additional parameters to specify conductances:</p>
+<p>Apart from parameters specified in the base class <code>pyneural.neuron_models.Neuron</code>, this class requires additional parameters to specify conductances:</p>
 
 <h6 id="parameters">Parameters</h6>
 
@@ -469,35 +433,22 @@ Note that the conductances of ion channels are not specidied in the base class c
 
 
                             </div>
-                            <div id="HHNeuron.I_ext" class="classattr">
-                                <div class="attr variable">
-            <span class="name">I_ext</span><span class="annotation">: float</span>        =
-<span class="default_value">0.0</span>
-
-        
-    </div>
-    <a class="headerlink" href="#HHNeuron.I_ext"></a>
-    
-            <div class="docstring"><p>External current stimulation in mA. Typically between 0 and 50. The variation in current is usually caused by other neurons connected to the current one by synnapses.</p>
-</div>
-
-
-                            </div>
-                            <div id="HHNeuron.step" class="classattr">
+                            <div id="HHNeuronGroup.step" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">step</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">t</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">dt</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">) -> <span class="n"><a href="statistics.html#NeuronStepStatistics">pyneural.statistics.NeuronStepStatistics</a></span>:</span></span>
+        <span class="name">step</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">I_ext</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>,</span><span class="param">	<span class="n">t</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">dt</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">) -> <span class="n"><a href="statistics.html#NeuronStepStatistics">pyneural.statistics.NeuronStepStatistics</a></span>:</span></span>
 
         
     </div>
-    <a class="headerlink" href="#HHNeuron.step"></a>
+    <a class="headerlink" href="#HHNeuronGroup.step"></a>
     
             <div class="docstring"><p>Perform one step of a simulation. Returns a <code><a href="statistics.html#NeuronStepStatistics">pyneural.statistics.NeuronStepStatistics</a></code> object.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
+<li><strong>I_ext</strong>:  external stimulation for each neuron cell.</li>
 <li><strong>t</strong>:  current time in ms.</li>
 <li><strong>dt</strong>:  time between two consecutive simulation steps in ms.</li>
 </ul>
@@ -505,22 +456,22 @@ Note that the conductances of ion channels are not specidied in the base class c
 
 
                             </div>
-                            <div id="HHNeuron.reset" class="classattr">
+                            <div id="HHNeuronGroup.reset" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">reset</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">V</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">):</span></span>
+        <span class="name">reset</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">V</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">):</span></span>
 
         
     </div>
-    <a class="headerlink" href="#HHNeuron.reset"></a>
+    <a class="headerlink" href="#HHNeuronGroup.reset"></a>
     
             <div class="docstring"><p>Reset the neuron to the stable state. All ion channels are reset with respect to the membrane potential.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>V</strong>:  new membrane potential in mV. If not specified, is set to the resting potential.</li>
+<li><strong>V</strong>:  numpy array containing new membrane potentials for each neuron in mV. If not specified, neurons are set to the resting potential.</li>
 </ul>
 </div>
 

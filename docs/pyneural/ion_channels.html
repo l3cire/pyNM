@@ -34,6 +34,12 @@
                     <a class="class" href="#IonChannel">IonChannel</a>
                             <ul class="memberlist">
                         <li>
+                                <a class="function" href="#IonChannel.__init__">IonChannel</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#IonChannel.N_neurons">N_neurons</a>
+                        </li>
+                        <li>
                                 <a class="variable" href="#IonChannel.g">g</a>
                         </li>
                         <li>
@@ -50,9 +56,6 @@
                             <ul class="memberlist">
                         <li>
                                 <a class="function" href="#IonChannelConst.__init__">IonChannelConst</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#IonChannelConst.g">g</a>
                         </li>
                         <li>
                                 <a class="function" href="#IonChannelConst.update_g">update_g</a>
@@ -109,6 +112,12 @@
                                 <a class="variable" href="#MarkovIonGate.state">state</a>
                         </li>
                         <li>
+                                <a class="variable" href="#MarkovIonGate.N_neurons">N_neurons</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#MarkovIonGate.rest_val">rest_val</a>
+                        </li>
+                        <li>
                                 <a class="function" href="#MarkovIonGate.set_inf_state">set_inf_state</a>
                         </li>
                         <li>
@@ -155,15 +164,45 @@
 <h6 id="attributes">Attributes:</h6>
 
 <ul>
-<li><strong>g:</strong>  conductace of a channel.</li>
+<li><strong>g:</strong>  conductace of a channel for each neuron.</li>
 </ul>
 </div>
 
 
+                            <div id="IonChannel.__init__" class="classattr">
+                                <div class="attr function">
+            
+        <span class="name">IonChannel</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">N_neurons</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span></span>)</span>
+
+        
+    </div>
+    <a class="headerlink" href="#IonChannel.__init__"></a>
+    
+            <div class="docstring"><p>Initialize a new ion channel object.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>N_neurons</strong>:  number of neurons in a simulation.</li>
+</ul>
+</div>
+
+
+                            </div>
+                            <div id="IonChannel.N_neurons" class="classattr">
+                                <div class="attr variable">
+            <span class="name">N_neurons</span>
+
+        
+    </div>
+    <a class="headerlink" href="#IonChannel.N_neurons"></a>
+    
+    
+
+                            </div>
                             <div id="IonChannel.g" class="classattr">
                                 <div class="attr variable">
-            <span class="name">g</span><span class="annotation">: float</span>        =
-<span class="default_value">0</span>
+            <span class="name">g</span>
 
         
     </div>
@@ -177,18 +216,18 @@
                     <div class="decorator decorator-abstractmethod">@abstractmethod</div>
 
         <span class="def">def</span>
-        <span class="name">update_g</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">v</span><span class="p">:</span> <span class="nb">float</span>, </span><span class="param"><span class="n">t</span><span class="p">:</span> <span class="nb">float</span>, </span><span class="param"><span class="n">dt</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">) -> <span class="nb">float</span>:</span></span>
+        <span class="name">update_g</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">V</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>, </span><span class="param"><span class="n">t</span><span class="p">:</span> <span class="nb">float</span>, </span><span class="param"><span class="n">dt</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">) -> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>:</span></span>
 
         
     </div>
     <a class="headerlink" href="#IonChannel.update_g"></a>
     
-            <div class="docstring"><p>Updates the conductance of the channel based on current time and membrane potential. Returns new conductance.</p>
+            <div class="docstring"><p>Updates the conductance of the channel for each neuron based on current time and membrane potential for each neuron. Returns new conductance for each neuron.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>v</strong>:  current membrane potential relative to the resting potential in mV.</li>
+<li><strong>V</strong>:  numpy array containing current membrane potentials (relative to the resting potential) for each neuron in mV.</li>
 <li><strong>t</strong>:  current time in ms.</li>
 <li><strong>dt</strong>:  the time interval between two consecutive updates in ms.</li>
 </ul>
@@ -201,18 +240,18 @@
                     <div class="decorator decorator-abstractmethod">@abstractmethod</div>
 
         <span class="def">def</span>
-        <span class="name">reset</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">v_init</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">):</span></span>
+        <span class="name">reset</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">V_init</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">):</span></span>
 
         
     </div>
     <a class="headerlink" href="#IonChannel.reset"></a>
     
-            <div class="docstring"><p>Resets the conductance to the stable level, given that the membrane potential is constant.</p>
+            <div class="docstring"><p>Resets the conductance of each neuron to the stable level, given that the membrane potential is constant.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>v_init</strong>:  the membrane potential (relative to the resting potential) in mV.</li>
+<li><strong>V_init</strong>:  numpy array containing membrane potentials (relative to the resting potential) for each neuron in mV.</li>
 </ul>
 </div>
 
@@ -234,7 +273,7 @@
 <h6 id="attributes">Attributes:</h6>
 
 <ul>
-<li><strong>g:</strong>  ion channel conductance.</li>
+<li><strong>g:</strong>  ion channel conductance for each neuron.</li>
 </ul>
 </div>
 
@@ -242,7 +281,7 @@
                             <div id="IonChannelConst.__init__" class="classattr">
                                 <div class="attr function">
             
-        <span class="name">IonChannelConst</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">g</span><span class="p">:</span> <span class="nb">float</span></span>)</span>
+        <span class="name">IonChannelConst</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">N_neurons</span><span class="p">:</span> <span class="nb">int</span>, </span><span class="param"><span class="n">g</span><span class="p">:</span> <span class="nb">float</span></span>)</span>
 
         
     </div>
@@ -253,40 +292,29 @@
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>g</strong>:  conductance of this channel.</li>
+<li><strong>N_neurons</strong>:  number of neurons in a simulation.</li>
+<li><strong>g</strong>:  conductance of this channel (same for each neuron).</li>
 </ul>
 </div>
 
-
-                            </div>
-                            <div id="IonChannelConst.g" class="classattr">
-                                <div class="attr variable">
-            <span class="name">g</span><span class="annotation">: float</span>        =
-<span class="default_value">0.0</span>
-
-        
-    </div>
-    <a class="headerlink" href="#IonChannelConst.g"></a>
-    
-    
 
                             </div>
                             <div id="IonChannelConst.update_g" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">update_g</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">v</span>, </span><span class="param"><span class="n">t</span>, </span><span class="param"><span class="n">dt</span></span><span class="return-annotation">) -> <span class="nb">float</span>:</span></span>
+        <span class="name">update_g</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">V</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>, </span><span class="param"><span class="n">t</span><span class="p">:</span> <span class="nb">float</span>, </span><span class="param"><span class="n">dt</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">) -> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>:</span></span>
 
         
     </div>
     <a class="headerlink" href="#IonChannelConst.update_g"></a>
     
-            <div class="docstring"><p>Updates the conductance of the channel based on current time and membrane potential. Returns new conductance.</p>
+            <div class="docstring"><p>Updates the conductance of the channel for each neuron based on current time and membrane potential for each neuron. Returns new conductance for each neuron.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>v</strong>:  current membrane potential relative to the resting potential in mV.</li>
+<li><strong>V</strong>:  numpy array containing current membrane potentials (relative to the resting potential) for each neuron in mV.</li>
 <li><strong>t</strong>:  current time in ms.</li>
 <li><strong>dt</strong>:  the time interval between two consecutive updates in ms.</li>
 </ul>
@@ -298,18 +326,18 @@
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">reset</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">v_init</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span></span><span class="return-annotation">):</span></span>
+        <span class="name">reset</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">V_init</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">):</span></span>
 
         
     </div>
     <a class="headerlink" href="#IonChannelConst.reset"></a>
     
-            <div class="docstring"><p>Resets the conductance to the stable level, given that the membrane potential is constant.</p>
+            <div class="docstring"><p>Resets the conductance of each neuron to the stable level, given that the membrane potential is constant.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>v_init</strong>:  the membrane potential (relative to the resting potential) in mV.</li>
+<li><strong>V_init</strong>:  numpy array containing membrane potentials (relative to the resting potential) for each neuron in mV.</li>
 </ul>
 </div>
 
@@ -331,7 +359,7 @@
 <h6 id="attributes">Attributes:</h6>
 
 <ul>
-<li><strong>g:</strong>  ion channel conductance.</li>
+<li><strong>g:</strong>  ion channel conductance for each neuron.</li>
 </ul>
 </div>
 
@@ -339,19 +367,20 @@
                             <div id="HHIonChannelK.__init__" class="classattr">
                                 <div class="attr function">
             
-        <span class="name">HHIonChannelK</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">gK</span><span class="p">:</span> <span class="nb">float</span>, </span><span class="param"><span class="n">v_init</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span></span>)</span>
+        <span class="name">HHIonChannelK</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">N_neurons</span><span class="p">:</span> <span class="nb">int</span>, </span><span class="param"><span class="n">gK</span><span class="p">:</span> <span class="nb">float</span>, </span><span class="param"><span class="n">V_init</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
 
         
     </div>
     <a class="headerlink" href="#HHIonChannelK.__init__"></a>
     
-            <div class="docstring"><p>Initialize a new potassium ion channel.</p>
+            <div class="docstring"><p>Initialize a new potassium ion channel for a set of neurons.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>gK</strong>:  conductance of potassium channels when all ion gates are open (maximum conductance).</li>
-<li><strong>v_init</strong>:  initial membrane potential (relative to resting potential) at stability in mV</li>
+<li><strong>N_neurons</strong>:  number of neurons in a simulation.</li>
+<li><strong>gK</strong>:  conductance of potassium channels of a single neuron when all ion gates are open (maximum conductance).</li>
+<li><strong>V_init</strong>:  numpy array containing initial membrane potentials (relative to resting potential) for each neuron at stability in mV (zero by default).</li>
 </ul>
 </div>
 
@@ -359,8 +388,7 @@
                             </div>
                             <div id="HHIonChannelK.g" class="classattr">
                                 <div class="attr variable">
-            <span class="name">g</span><span class="annotation">: float</span>        =
-<span class="default_value">0.0</span>
+            <span class="name">g</span><span class="annotation">: numpy.ndarray</span>
 
         
     </div>
@@ -373,18 +401,18 @@
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">update_g</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">v</span>, </span><span class="param"><span class="n">t</span>, </span><span class="param"><span class="n">dt</span></span><span class="return-annotation">) -> <span class="nb">float</span>:</span></span>
+        <span class="name">update_g</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">V</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>, </span><span class="param"><span class="n">t</span><span class="p">:</span> <span class="nb">float</span>, </span><span class="param"><span class="n">dt</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">) -> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>:</span></span>
 
         
     </div>
     <a class="headerlink" href="#HHIonChannelK.update_g"></a>
     
-            <div class="docstring"><p>Updates the conductance of the channel based on current time and membrane potential. Returns new conductance.</p>
+            <div class="docstring"><p>Updates the conductance of the channel for each neuron based on current time and membrane potential for each neuron. Returns new conductance for each neuron.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>v</strong>:  current membrane potential relative to the resting potential in mV.</li>
+<li><strong>V</strong>:  numpy array containing current membrane potentials (relative to the resting potential) for each neuron in mV.</li>
 <li><strong>t</strong>:  current time in ms.</li>
 <li><strong>dt</strong>:  the time interval between two consecutive updates in ms.</li>
 </ul>
@@ -396,18 +424,18 @@
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">reset</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">v_init</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span></span><span class="return-annotation">):</span></span>
+        <span class="name">reset</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">V_init</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">):</span></span>
 
         
     </div>
     <a class="headerlink" href="#HHIonChannelK.reset"></a>
     
-            <div class="docstring"><p>Resets the conductance to the stable level, given that the membrane potential is constant.</p>
+            <div class="docstring"><p>Resets the conductance of each neuron to the stable level, given that the membrane potential is constant.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>v_init</strong>:  the membrane potential (relative to the resting potential) in mV.</li>
+<li><strong>V_init</strong>:  numpy array containing membrane potentials (relative to the resting potential) for each neuron in mV.</li>
 </ul>
 </div>
 
@@ -429,7 +457,7 @@
 <h6 id="attributes">Attributes:</h6>
 
 <ul>
-<li><strong>g:</strong>  ion channel conductance.</li>
+<li><strong>g:</strong>  ion channel conductance for each neuron.</li>
 </ul>
 </div>
 
@@ -437,19 +465,20 @@
                             <div id="HHIonChannelNa.__init__" class="classattr">
                                 <div class="attr function">
             
-        <span class="name">HHIonChannelNa</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">gNa</span><span class="p">:</span> <span class="nb">float</span>, </span><span class="param"><span class="n">v_init</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span></span>)</span>
+        <span class="name">HHIonChannelNa</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">N_neurons</span><span class="p">:</span> <span class="nb">int</span>, </span><span class="param"><span class="n">gNa</span><span class="p">:</span> <span class="nb">float</span>, </span><span class="param"><span class="n">V_init</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
 
         
     </div>
     <a class="headerlink" href="#HHIonChannelNa.__init__"></a>
     
-            <div class="docstring"><p>Initialize a new sodium ion channel.</p>
+            <div class="docstring"><p>Initialize a new sodium ion channel for a set of neurons.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>gNa</strong>:  conductance of sodium channels when all ion gates are open (maximum conductance).</li>
-<li><strong>v_init</strong>:  initial membrane potential (relative to resting potential) at stability in mV</li>
+<li><strong>N_neurons</strong>:  number of neurons in a simulation.</li>
+<li><strong>gNa</strong>:  conductance of sodium channels in a single neuron when all ion gates are open (maximum conductance).</li>
+<li><strong>V_init</strong>:  numpy array containing initial membrane potentials (relative to resting potential) for each neuron at stability in mV (zero by default).</li>
 </ul>
 </div>
 
@@ -457,8 +486,7 @@
                             </div>
                             <div id="HHIonChannelNa.g" class="classattr">
                                 <div class="attr variable">
-            <span class="name">g</span><span class="annotation">: float</span>        =
-<span class="default_value">0.0</span>
+            <span class="name">g</span><span class="annotation">: numpy.ndarray</span>
 
         
     </div>
@@ -471,18 +499,18 @@
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">update_g</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">v</span>, </span><span class="param"><span class="n">t</span>, </span><span class="param"><span class="n">dt</span></span><span class="return-annotation">):</span></span>
+        <span class="name">update_g</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">V</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>, </span><span class="param"><span class="n">t</span>, </span><span class="param"><span class="n">dt</span></span><span class="return-annotation">) -> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>:</span></span>
 
         
     </div>
     <a class="headerlink" href="#HHIonChannelNa.update_g"></a>
     
-            <div class="docstring"><p>Updates the conductance of the channel based on current time and membrane potential. Returns new conductance.</p>
+            <div class="docstring"><p>Updates the conductance of the channel for each neuron based on current time and membrane potential for each neuron. Returns new conductance for each neuron.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>v</strong>:  current membrane potential relative to the resting potential in mV.</li>
+<li><strong>V</strong>:  numpy array containing current membrane potentials (relative to the resting potential) for each neuron in mV.</li>
 <li><strong>t</strong>:  current time in ms.</li>
 <li><strong>dt</strong>:  the time interval between two consecutive updates in ms.</li>
 </ul>
@@ -494,18 +522,18 @@
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">reset</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">v_init</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span></span><span class="return-annotation">):</span></span>
+        <span class="name">reset</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">V_init</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">):</span></span>
 
         
     </div>
     <a class="headerlink" href="#HHIonChannelNa.reset"></a>
     
-            <div class="docstring"><p>Resets the conductance to the stable level, given that the membrane potential is constant.</p>
+            <div class="docstring"><p>Resets the conductance of each neuron to the stable level, given that the membrane potential is constant.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>v_init</strong>:  the membrane potential (relative to the resting potential) in mV.</li>
+<li><strong>V_init</strong>:  numpy array containing membrane potentials (relative to the resting potential) for each neuron in mV.</li>
 </ul>
 </div>
 
@@ -527,7 +555,7 @@
 <h6 id="attributes">Attributes:</h6>
 
 <ul>
-<li><strong>state:</strong>  probability of the gate being open (alternatively, a fraction of open gates of this type).</li>
+<li><strong>state:</strong>  numpy array containing probabilities of the gate being open for each neuron (alternatively, a fraction of open gates of this type in each neuron).</li>
 </ul>
 </div>
 
@@ -535,7 +563,7 @@
                             <div id="MarkovIonGate.__init__" class="classattr">
                                 <div class="attr function">
             
-        <span class="name">MarkovIonGate</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">alpha</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">]</span>,</span><span class="param">	<span class="n">beta</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">]</span>,</span><span class="param">	<span class="n">v_init</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span></span>)</span>
+        <span class="name">MarkovIonGate</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">N_neurons</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">alpha</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>,</span><span class="param">	<span class="n">beta</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>,</span><span class="param">	<span class="n">V_init</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
 
         
     </div>
@@ -546,9 +574,10 @@
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>alpha</strong>:  a function that maps current membrane potential in mV to the probability of the gate transitioning from closed to open.</li>
-<li><strong>beta</strong>:  a function that maps current mambrane potantial in mV to the probability of the gate transitioning from open to closed. </li>
-<li><strong>v_init</strong>:  initial membrane potantial at stability.</li>
+<li><strong>N_neurons</strong>:  number of neurons in a simulation.</li>
+<li><strong>alpha</strong>:  a function that maps current membrane potentials of all neurons in mV to the probabilities of the gate transitioning from closed to open in each neuron.</li>
+<li><strong>beta</strong>:  a function that maps current mambrane potantial of all neurons in mV to the probabilities of the gate transitioning from open to closed in each neuron. </li>
+<li><strong>V_init</strong>:  initial membrane potantial (relative to the resting potential) at stability for each neuron (zero by default).</li>
 </ul>
 </div>
 
@@ -556,8 +585,8 @@
                             </div>
                             <div id="MarkovIonGate.state" class="classattr">
                                 <div class="attr variable">
-            <span class="name">state</span><span class="annotation">: float</span>        =
-<span class="default_value">0.0</span>
+            <span class="name">state</span><span class="annotation">: numpy.ndarray</span>        =
+<span class="default_value">array([], dtype=float64)</span>
 
         
     </div>
@@ -566,11 +595,33 @@
     
 
                             </div>
+                            <div id="MarkovIonGate.N_neurons" class="classattr">
+                                <div class="attr variable">
+            <span class="name">N_neurons</span>
+
+        
+    </div>
+    <a class="headerlink" href="#MarkovIonGate.N_neurons"></a>
+    
+    
+
+                            </div>
+                            <div id="MarkovIonGate.rest_val" class="classattr">
+                                <div class="attr variable">
+            <span class="name">rest_val</span><span class="annotation">: float</span>
+
+        
+    </div>
+    <a class="headerlink" href="#MarkovIonGate.rest_val"></a>
+    
+    
+
+                            </div>
                             <div id="MarkovIonGate.set_inf_state" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">set_inf_state</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">v</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">):</span></span>
+        <span class="name">set_inf_state</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">V</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">):</span></span>
 
         
     </div>
@@ -581,7 +632,7 @@
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>v</strong>:  membrane potential in mV.</li>
+<li><strong>V</strong>:  numpy array containing membrane potentials for each neuron in mV.</li>
 </ul>
 </div>
 
@@ -591,7 +642,7 @@
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">update</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">v</span><span class="p">:</span> <span class="nb">float</span>, </span><span class="param"><span class="n">dt</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">):</span></span>
+        <span class="name">update</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">V</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>, </span><span class="param"><span class="n">dt</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">):</span></span>
 
         
     </div>
@@ -602,8 +653,8 @@
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>v</strong>:  membrane potential in mV.</li>
-<li><strong>dt</strong>:  time interval between two consecutive updates in mV.</li>
+<li><strong>V</strong>:  numpy array containing membrane potentials for each neuron in mV.</li>
+<li><strong>dt</strong>:  time interval between two consecutive updates in ms.</li>
 </ul>
 </div>
 

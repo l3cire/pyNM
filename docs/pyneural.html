@@ -36,10 +36,10 @@
                     <a class="class" href="#NeuralModel">NeuralModel</a>
                             <ul class="memberlist">
                         <li>
-                                <a class="function" href="#NeuralModel.simulate_neuron">simulate_neuron</a>
+                                <a class="function" href="#NeuralModel.simulate_neurons">simulate_neurons</a>
                         </li>
                         <li>
-                                <a class="function" href="#NeuralModel.get_fi_curve">get_fi_curve</a>
+                                <a class="function" href="#NeuralModel.get_fi_curves">get_fi_curves</a>
                         </li>
                 </ul>
 
@@ -79,23 +79,23 @@ pyneural    </h1>
 </div>
 
 
-                            <div id="NeuralModel.simulate_neuron" class="classattr">
+                            <div id="NeuralModel.simulate_neurons" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">simulate_neuron</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">neuron</span><span class="p">:</span> <span class="n"><a href="pyneural/neuron_models.html#Neuron">pyneural.neuron_models.Neuron</a></span>,</span><span class="param">	<span class="n">N</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">dt</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">I_input</span><span class="p">:</span> <span class="n"><a href="pyneural/input_current.html#InputCurrent">pyneural.input_current.InputCurrent</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="n"><a href="pyneural/input_current.html#ConstInputCurrent">pyneural.input_current.ConstInputCurrent</a></span> <span class="nb">object</span><span class="o">&gt;</span></span><span class="return-annotation">) -> <span class="n"><a href="pyneural/statistics.html#NeuronStatistics">pyneural.statistics.NeuronStatistics</a></span>:</span></span>
+        <span class="name">simulate_neurons</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">neurons</span><span class="p">:</span> <span class="n"><a href="pyneural/neuron_models.html#NeuronGroup">pyneural.neuron_models.NeuronGroup</a></span>,</span><span class="param">	<span class="n">N_steps</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">dt</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">I_input</span><span class="p">:</span> <span class="n"><a href="pyneural/input_current.html#InputCurrent">pyneural.input_current.InputCurrent</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="n"><a href="pyneural/input_current.html#ConstInputCurrent">pyneural.input_current.ConstInputCurrent</a></span> <span class="nb">object</span><span class="o">&gt;</span></span><span class="return-annotation">) -> <span class="n"><a href="pyneural/statistics.html#NeuronStatistics">pyneural.statistics.NeuronStatistics</a></span>:</span></span>
 
         
     </div>
-    <a class="headerlink" href="#NeuralModel.simulate_neuron"></a>
+    <a class="headerlink" href="#NeuralModel.simulate_neurons"></a>
     
-            <div class="docstring"><p>Simulate <code>N</code> steps given the external current stimulation for a single neuron. Returns a <code><a href="pyneural/statistics.html#NeuronStatistics">pyneural.statistics.NeuronStatistics</a></code> object.</p>
+            <div class="docstring"><p>Simulate <code>N_steps</code> steps given the external current stimulation for a group of neurons. Returns a <code><a href="pyneural/statistics.html#NeuronStatistics">pyneural.statistics.NeuronStatistics</a></code> object.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>neuron</strong>:  neuron to simulate.</li>
-<li><strong>N</strong>:  number of steps in a simulation.</li>
+<li><strong>neurons</strong>:  neurons to simulate.</li>
+<li><strong>N_steps</strong>:  number of steps in a simulation.</li>
 <li><strong>dt</strong>:  time interval between two consecutive steps in ms.</li>
 <li><strong>I_input</strong>:  <code><a href="pyneural/input_current.html#InputCurrent">pyneural.input_current.InputCurrent</a></code> object specifying the current stimulation.</li>
 </ul>
@@ -103,15 +103,15 @@ pyneural    </h1>
 
 
                             </div>
-                            <div id="NeuralModel.get_fi_curve" class="classattr">
+                            <div id="NeuralModel.get_fi_curves" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">get_fi_curve</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">neuron</span><span class="p">:</span> <span class="n"><a href="pyneural/neuron_models.html#Neuron">pyneural.neuron_models.Neuron</a></span>,</span><span class="param">	<span class="n">I_ext</span>,</span><span class="param">	<span class="n">N_iter</span><span class="o">=</span><span class="mi">10000</span>,</span><span class="param">	<span class="n">dt</span><span class="o">=</span><span class="mf">0.01</span></span><span class="return-annotation">):</span></span>
+        <span class="name">get_fi_curves</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">neuron_params</span><span class="p">:</span> <span class="nb">dict</span>, </span><span class="param"><span class="n">I_ext</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>, </span><span class="param"><span class="n">N_iter</span><span class="o">=</span><span class="mi">100000</span>, </span><span class="param"><span class="n">dt</span><span class="o">=</span><span class="mi">1</span></span><span class="return-annotation">):</span></span>
 
         
     </div>
-    <a class="headerlink" href="#NeuralModel.get_fi_curve"></a>
+    <a class="headerlink" href="#NeuralModel.get_fi_curves"></a>
     
             <div class="docstring"><p>This function computes the f-I (spiking frequency vs. current stimulation) curve for a given neuron.</p>
 

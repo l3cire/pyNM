@@ -9,15 +9,16 @@ class HHIonChannelK(IonChannel):
     Potassium ion channel for the Hodgkin-Huxley model. Models the channel as 4 consequtive Markov ion gates that all have to be open for the channel to let potassium ions through.
 
     Attributes:
-        g: ion channel conductance.
+        g: ion channel conductance for each neuron.
     """
 
     def __init__(self, N_neurons: int, gK: float, V_init: Optional[np.ndarray] = None):
         """
-        Initialize a new potassium ion channel.
+        Initialize a new potassium ion channel for a set of neurons.
 
-        :param gK: conductance of potassium channels when all ion gates are open (maximum conductance).
-        :param v_init: initial membrane potential (relative to resting potential) at stability in mV
+        :param N_neurons: number of neurons in a simulation.
+        :param gK: conductance of potassium channels of a single neuron when all ion gates are open (maximum conductance).
+        :param V_init: numpy array containing initial membrane potentials (relative to resting potential) for each neuron at stability in mV (zero by default).
         """
         super().__init__(N_neurons)
 

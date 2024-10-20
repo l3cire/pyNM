@@ -1,5 +1,5 @@
 """
-This module contains models for a single neuron. All of them are inherited from an abstract base class `pyneural.neural_models.Neuron`.
+This module contains models for a single neuron. All of them are inherited from an abstract base class `pyneural.neural_models.NeuronGroup`.
 """
 
 from ._Neuron import NeuronGroup

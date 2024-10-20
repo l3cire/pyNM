@@ -34,6 +34,12 @@
                     <a class="class" href="#InputCurrent">InputCurrent</a>
                             <ul class="memberlist">
                         <li>
+                                <a class="function" href="#InputCurrent.__init__">InputCurrent</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#InputCurrent.N_neurons">N_neurons</a>
+                        </li>
+                        <li>
                                 <a class="function" href="#InputCurrent.get_current">get_current</a>
                         </li>
                 </ul>
@@ -103,18 +109,49 @@
 </div>
 
 
+                            <div id="InputCurrent.__init__" class="classattr">
+                                <div class="attr function">
+            
+        <span class="name">InputCurrent</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">N_neurons</span><span class="p">:</span> <span class="nb">int</span></span>)</span>
+
+        
+    </div>
+    <a class="headerlink" href="#InputCurrent.__init__"></a>
+    
+            <div class="docstring"><p>Initialize an InputCurrent object.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>N_neurons</strong>:  number of neurons for the simulation (some models can simulate different input stimulation for dofferent neurons within a single simulation)</li>
+</ul>
+</div>
+
+
+                            </div>
+                            <div id="InputCurrent.N_neurons" class="classattr">
+                                <div class="attr variable">
+            <span class="name">N_neurons</span>
+
+        
+    </div>
+    <a class="headerlink" href="#InputCurrent.N_neurons"></a>
+    
+    
+
+                            </div>
                             <div id="InputCurrent.get_current" class="classattr">
                                 <div class="attr function">
                     <div class="decorator decorator-abstractmethod">@abstractmethod</div>
 
         <span class="def">def</span>
-        <span class="name">get_current</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">t</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">) -> <span class="nb">float</span>:</span></span>
+        <span class="name">get_current</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">t</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">) -> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>:</span></span>
 
         
     </div>
     <a class="headerlink" href="#InputCurrent.get_current"></a>
     
-            <div class="docstring"><p>Get current stimulation at a particular moment in time.</p>
+            <div class="docstring"><p>Get current stimulation at a particular moment in time. Returns a numpy array of stimulation values for each neuron in a simulaiton.</p>
 
 <h6 id="parameters">Parameters</h6>
 
@@ -136,14 +173,14 @@
     </div>
     <a class="headerlink" href="#ConstInputCurrent"></a>
     
-            <div class="docstring"><p>Constant current stimulation.</p>
+            <div class="docstring"><p>Constant current stimulation. Each neuron gets the constant current specified by the input.</p>
 </div>
 
 
                             <div id="ConstInputCurrent.__init__" class="classattr">
                                 <div class="attr function">
             
-        <span class="name">ConstInputCurrent</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">start_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>, </span><span class="param"><span class="n">end_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">inf</span>, </span><span class="param"><span class="n">I</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span></span>)</span>
+        <span class="name">ConstInputCurrent</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">N_neurons</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>,</span><span class="param">	<span class="n">start_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>,</span><span class="param">	<span class="n">end_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">inf</span>,</span><span class="param">	<span class="n">I</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span></span>)</span>
 
         
     </div>
@@ -152,9 +189,10 @@
             <div class="docstring"><h6 id="parameters">Parameters</h6>
 
 <ul>
+<li><strong>N_neurons</strong>:  number of neurons in a simulation.</li>
 <li><strong>start_time</strong>:  start time of the external stimulation in ms.</li>
 <li><strong>end_time</strong>:  end time of the external stimulation in ms.</li>
-<li><strong>I</strong>:  value of the stimulation in mA.</li>
+<li><strong>I</strong>:  value of external stimulation.</li>
 </ul>
 </div>
 
@@ -164,13 +202,13 @@
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">get_current</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">t</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">) -> <span class="nb">float</span>:</span></span>
+        <span class="name">get_current</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">t</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">) -> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>:</span></span>
 
         
     </div>
     <a class="headerlink" href="#ConstInputCurrent.get_current"></a>
     
-            <div class="docstring"><p>Get current stimulation at a particular moment in time.</p>
+            <div class="docstring"><p>Get current stimulation at a particular moment in time. Returns a numpy array of stimulation values for each neuron in a simulaiton.</p>
 
 <h6 id="parameters">Parameters</h6>
 
@@ -199,13 +237,13 @@
                             <div id="NoisyConstInputCurrent.__init__" class="classattr">
                                 <div class="attr function">
             
-        <span class="name">NoisyConstInputCurrent</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">start_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>,</span><span class="param">	<span class="n">end_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">inf</span>,</span><span class="param">	<span class="n">I</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>,</span><span class="param">	<span class="n">std</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span></span>)</span>
+        <span class="name">NoisyConstInputCurrent</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">N_neurons</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>,</span><span class="param">	<span class="n">start_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>,</span><span class="param">	<span class="n">end_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">inf</span>,</span><span class="param">	<span class="n">I</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>,</span><span class="param">	<span class="n">std</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span></span>)</span>
 
         
     </div>
     <a class="headerlink" href="#NoisyConstInputCurrent.__init__"></a>
     
-            <div class="docstring"><p>Initialize a new input current object. Apart from its superclass parameters, takes one additional argument:</p>
+            <div class="docstring"><p>Initialize a new noisy input current object. Apart from its superclass parameters, takes one additional argument:</p>
 
 <h6 id="parameters">Parameters</h6>
 
@@ -220,13 +258,13 @@
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">get_current</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">t</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">) -> <span class="nb">float</span>:</span></span>
+        <span class="name">get_current</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">t</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">) -> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>:</span></span>
 
         
     </div>
     <a class="headerlink" href="#NoisyConstInputCurrent.get_current"></a>
     
-            <div class="docstring"><p>Get current stimulation at a particular moment in time.</p>
+            <div class="docstring"><p>Get current stimulation at a particular moment in time. Returns a numpy array of stimulation values for each neuron in a simulaiton.</p>
 
 <h6 id="parameters">Parameters</h6>
 

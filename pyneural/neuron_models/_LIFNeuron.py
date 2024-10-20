@@ -11,7 +11,7 @@ class LIFNeuronGroup(ConstCondNeuronGroup):
 
     def __init__(self, N_neurons: int, params: dict = {}):
         """
-        Initialize a new neuron.
+        Initialize a new group of Leaky Integrate and Fire neuron.
 
         This model inherits from `pyneural.neuron_models.ConstCondNeuron`, since it also models conductances as constant. However, apart from parameters required for the base class, it need two additional parameters:
         :param params['V_reset']: the potential to reset to after a spike in mV (-80.099 by default).

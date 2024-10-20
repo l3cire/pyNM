@@ -12,10 +12,10 @@ class NeuralModel:
         
     def simulate_neurons(self, neurons: NeuronGroup, N_steps: int, dt: float, I_input: InputCurrent = CONST_ZERO_INPUT) -> NeuronStatistics:
         """
-        Simulate `N` steps given the external current stimulation for a single neuron. Returns a `pyneural.statistics.NeuronStatistics` object.
+        Simulate `N_steps` steps given the external current stimulation for a group of neurons. Returns a `pyneural.statistics.NeuronStatistics` object.
 
         :param neurons: neurons to simulate.
-        :param N: number of steps in a simulation.
+        :param N_steps: number of steps in a simulation.
         :param dt: time interval between two consecutive steps in ms.
         :param I_input: `pyneural.input_current.InputCurrent` object specifying the current stimulation.
         """

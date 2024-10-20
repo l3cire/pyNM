@@ -10,7 +10,7 @@ class ConstCondNeuronGroup(NeuronGroup):
 
     def __init__(self, N_neurons: int, params: dict = {}):
         """
-        Initialize a new neuron.
+        Initialize a new group of neurons with constaint conductance for each ion channel.
 
         Apart from parameters specified in the base class `pyneural.neuron_models.Neuron`, this class requires additional parameters to specify conductances. There are two possible ways to specify a neuron. First one (preferred):
         :param params['g_m']: total membrane conductance (1.0 by default).

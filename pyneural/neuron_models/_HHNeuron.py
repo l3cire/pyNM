@@ -1,16 +1,15 @@
 from typing import Optional
+import numpy as np
 from ..statistics import NeuronStepStatistics
 from ..ion_channels import HHIonChannelNa, HHIonChannelK, IonChannelConst
-from ._Neuron import Neuron
+from ._Neuron import NeuronGroup
 
-class HHNeuron(Neuron):
+class HHNeuronGroup(NeuronGroup):
     """
     Implementation of the Hodgkin-Huxley model of a neuron.
     """
 
-    I_ext: float = 0.0
-    
-    def __init__(self, params: dict = {}):
+    def __init__(self, N_neurons: int, params: dict = {}):
         """
         Initialize a new neuron.
 
@@ -24,7 +23,7 @@ class HHNeuron(Neuron):
         :param params['E_Na']: sodium ion channels reversal potential in mV (45.0 by default).
         """
 
-        super().__init__(params)
+        super().__init__(N_neurons, params)
         
         self._E_L = params.get('E_L', -59.4)
         self._E_K = params.get('E_K', -82)
@@ -32,33 +31,32 @@ class HHNeuron(Neuron):
 
         self._C_m = params.get('C_m', 1.0)
 
-        self._g_L = IonChannelConst(params.get('gL', 0.3))
-        self._g_K = HHIonChannelK(params.get('gK', 36.0), self._V - self._V_rest)
-        self._g_Na = HHIonChannelNa(params.get('gNa', 120.0), self._V - self._V_rest)
+        self._g_L = IonChannelConst(self.N_neurons, params.get('gL', 0.3))
+        self._g_K = HHIonChannelK(self.N_neurons, params.get('gK', 36.0), self._V - self._V_rest)
+        self._g_Na = HHIonChannelNa(self.N_neurons, params.get('gNa', 120.0), self._V - self._V_rest)
 
-    def step(self, t: float, dt: float) -> NeuronStepStatistics:
+    def step(self, I_ext: np.ndarray, t: float, dt: float) -> NeuronStepStatistics:
         stats = NeuronStepStatistics()
         stats.T = t
 
-        stats.g_leak = self._g_L.update_g(self._V - self._V_rest, t, dt)
-        stats.g_K = self._g_K.update_g(self._V - self._V_rest, t, dt)
-        stats.g_Na = self._g_Na.update_g(self._V - self._V_rest, t, dt)
-        stats.g_m = self._g_L.g + self._g_K.g + self._g_Na.g
+        stats.g_leak = self._g_L.update_g(self._V - self._V_rest, t, dt).copy()
+        stats.g_K = self._g_K.update_g(self._V - self._V_rest, t, dt).copy()
+        stats.g_Na = self._g_Na.update_g(self._V - self._V_rest, t, dt).copy()
 
-        I_leak = -self._g_L.g * (self._V - self._E_L)
-        I_K = -self._g_K.g * (self._V - self._E_K)
-        I_Na = -self._g_Na.g * (self._V - self._E_Na)
-        stats.I_leak, stats.I_K, stats.I_Na, stats.I_ext, stats.I_total = I_leak, I_K, I_Na, self.I_ext, (I_leak + I_K + I_Na + self.I_ext)
+        I_leak: np.ndarray = -self._g_L.g * (self._V - self._E_L)
+        I_K: np.ndarray = -self._g_K.g * (self._V - self._E_K)
+        I_Na: np.ndarray = -self._g_Na.g * (self._V - self._E_Na)
+        stats.I_leak, stats.I_K, stats.I_Na, stats.I_ext, stats.I_total = I_leak, I_K, I_Na, I_ext, (I_leak + I_K + I_Na + I_ext)
 
         self._V += stats.I_total * dt / self._C_m  # since dV/dt = CI
-        stats.Vm = self._V
+        stats.Vm = self._V.copy()
 
-        stats.gate_n = self._g_K._n_gate.state
-        stats.gate_m = self._g_Na._m_gate.state
-        stats.gate_h = self._g_Na._h_gate.state
+        stats.gate_n = self._g_K._n_gate.state.copy()
+        stats.gate_m = self._g_Na._m_gate.state.copy()
+        stats.gate_h = self._g_Na._h_gate.state.copy()
         return stats
 
-    def reset(self, V: Optional[float] = None):
+    def reset(self, V: Optional[np.ndarray] = None):
         super().reset(V)
         self._g_L.reset(self._V - self._V_rest)
         self._g_K.reset(self._V - self._V_rest)

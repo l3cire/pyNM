@@ -1,4 +1,6 @@
 from abc import ABC, abstractmethod
+from typing import Optional
+import numpy as np
 
 
 class IonChannel(ABC):
@@ -8,10 +10,13 @@ class IonChannel(ABC):
     Attributes:
         g: conductace of a channel.
     """
-    g: float = 0
+
+    def __init__(self, N_neurons: int = 1):
+        self.N_neurons = N_neurons
+        self.g = np.zeros(N_neurons)
     
     @abstractmethod
-    def update_g(self, v: float, t: float, dt: float) -> float:
+    def update_g(self, V: np.ndarray, t: float, dt: float) -> np.ndarray:
         """
         Updates the conductance of the channel based on current time and membrane potential. Returns new conductance.
 
@@ -22,7 +27,7 @@ class IonChannel(ABC):
         pass
 
     @abstractmethod
-    def reset(self, v_init: float):
+    def reset(self, V_init: Optional[np.ndarray] = None):
         """
         Resets the conductance to the stable level, given that the membrane potential is constant.
 

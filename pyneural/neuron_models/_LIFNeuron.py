@@ -1,17 +1,15 @@
 from typing import Optional
+import numpy as np
 from ..statistics import NeuronStepStatistics
-from ._ConstCondNeuron import ConstCondNeuron
+from ._ConstCondNeuron import ConstCondNeuronGroup
 
-class LIFNeuron(ConstCondNeuron):
+class LIFNeuronGroup(ConstCondNeuronGroup):
     """
     Implementation of the Leaky Integrate and Fire model of a neuron.
 
     """
 
-    I_ext: float = 0.0
-
-    
-    def __init__(self, params: dict = {}):
+    def __init__(self, N_neurons: int, params: dict = {}):
         """
         Initialize a new neuron.
 
@@ -20,19 +18,18 @@ class LIFNeuron(ConstCondNeuron):
         :param params['V_spike']: spike potential in mV (35.685 by default).
         :param params['V_threshold']: threshold potential in mV (-50.0 by default).
         """
-        super().__init__()
+        super().__init__(N_neurons, params)
         self._V_reset = params.get('V_reset', -75.0)
         self._V_spike = params.get('V_spike', 35.0)
         self._V_threshold = params.get('V_threshold', -50.0)
 
 
-    def step(self, t: float, dt: float) -> NeuronStepStatistics:
-        stats = super().step(t, dt)
-        if(self._V > self._V_threshold):
-            self._V = self._V_reset
-            stats.Vm = self._V_spike
+    def step(self, I_ext: np.ndarray, t: float, dt: float) -> NeuronStepStatistics:
+        stats = super().step(I_ext, t, dt)
+        stats.Vm[self._V > self._V_threshold] = self._V_spike
+        self._V[self._V > self._V_threshold] = self._V_reset
         return stats
 
-    def reset(self, V: Optional[float] = None):
+    def reset(self, V: Optional[np.ndarray] = None):
         return super().reset(V)
 

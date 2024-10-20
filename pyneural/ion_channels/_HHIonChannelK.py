@@ -1,3 +1,4 @@
+from typing import Optional
 from ._IonChannel import IonChannel
 from ._MarkovIonGate import MarkovIonGate
 import numpy as np
@@ -10,28 +11,31 @@ class HHIonChannelK(IonChannel):
     Attributes:
         g: ion channel conductance.
     """
-    g: float = 0.0
 
-    def __init__(self, gK: float, v_init: float = 0):
+    def __init__(self, N_neurons: int, gK: float, V_init: Optional[np.ndarray] = None):
         """
         Initialize a new potassium ion channel.
 
         :param gK: conductance of potassium channels when all ion gates are open (maximum conductance).
         :param v_init: initial membrane potential (relative to resting potential) at stability in mV
         """
-        self._n_gate = MarkovIonGate(alpha=lambda v: ((10 - v) / 100) / (np.exp(0.1 * (10 - v)) - 1),
-                                    beta=lambda v: 0.125 * np.exp(-v / 80),
-                                    v_init=v_init)
+        super().__init__(N_neurons)
+
+
+        self._n_gate = MarkovIonGate(N_neurons,
+                                    alpha = lambda V: ((10 - V) / 100) / (np.exp(0.1 * (10 - V)) - 1),
+                                    beta = lambda V: 0.125 * np.exp(-V / 80),
+                                    V_init = V_init)
 
         self._g_max: float = gK
-        self.g = self._g_max * np.power(self._n_gate.state, 4)
+        self.g: np.ndarray = self._g_max * np.power(self._n_gate.state, 4)
 
-    def update_g(self, v, t, dt) -> float:
-        self._n_gate.update(v, dt)
+    def update_g(self, V: np.ndarray, t: float, dt: float) -> np.ndarray:
+        self._n_gate.update(V, dt)
         self.g = self._g_max * np.power(self._n_gate.state, 4)
         return self.g
     
-    def reset(self, v_init: float = 0):
-        self._n_gate.set_inf_state(v_init)
+    def reset(self, V_init: Optional[np.ndarray] = None):
+        self._n_gate.set_inf_state(V_init)
         self.g = self._g_max * np.power(self._n_gate.state, 4)
 

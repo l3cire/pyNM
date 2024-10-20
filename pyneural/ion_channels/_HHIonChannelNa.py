@@ -1,3 +1,4 @@
+from typing import Optional
 from ._IonChannel import IonChannel
 from ._MarkovIonGate import MarkovIonGate
 import numpy as np
@@ -11,9 +12,7 @@ class HHIonChannelNa(IonChannel):
         g: ion channel conductance.
     """
 
-    g = 0.0
-
-    def __init__(self, gNa: float, v_init: float=0):
+    def __init__(self, N_neurons: int, gNa: float, V_init: Optional[np.ndarray]=None):
         """
         Initialize a new sodium ion channel.
 
@@ -21,25 +20,27 @@ class HHIonChannelNa(IonChannel):
         :param v_init: initial membrane potential (relative to resting potential) at stability in mV
         """
 
-        self._m_gate = MarkovIonGate(alpha=lambda v: ((25 - v) / 10) / (np.exp(0.1 * (25 - v)) - 1),
-                                    beta=lambda v: 4 * np.exp(-v / 18),
-                                    v_init=v_init)
+        self._m_gate = MarkovIonGate(N_neurons,
+                                    alpha=lambda V: ((25 - V) / 10) / (np.exp(0.1 * (25 - V)) - 1),
+                                    beta=lambda V: 4 * np.exp(-V / 18),
+                                    V_init=V_init)
 
-        self._h_gate = MarkovIonGate(alpha=lambda v: 0.07 * np.exp(-v / 20),
-                                    beta=lambda v: 1 / (np.exp((30 - v) / 10) + 1),
-                                    v_init=v_init)
+        self._h_gate = MarkovIonGate(N_neurons,
+                                    alpha=lambda V: 0.07 * np.exp(-V / 20),
+                                    beta=lambda V: 1 / (np.exp((30 - V) / 10) + 1),
+                                    V_init=V_init)
 
         self._g_max: float = gNa
-        self.g = self._g_max * np.power(self._m_gate.state, 3) * self._h_gate.state
+        self.g: np.ndarray = self._g_max * np.power(self._m_gate.state, 3) * self._h_gate.state
 
-    def update_g(self, v, t, dt):
-        self._m_gate.update(v, dt)
-        self._h_gate.update(v, dt)
+    def update_g(self, V: np.ndarray, t, dt) -> np.ndarray:
+        self._m_gate.update(V, dt)
+        self._h_gate.update(V, dt)
         self.g = self._g_max * np.power(self._m_gate.state, 3) * self._h_gate.state
         return self.g
 
-    def reset(self, v_init: float = 0):
-        self._m_gate.set_inf_state(v_init)
-        self._h_gate.set_inf_state(v_init)
+    def reset(self, V_init: Optional[np.ndarray] = None):
+        self._m_gate.set_inf_state(V_init)
+        self._h_gate.set_inf_state(V_init)
         self.g = self._g_max * np.power(self._m_gate.state, 3) * self._h_gate.state
 

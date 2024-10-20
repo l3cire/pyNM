@@ -1,4 +1,6 @@
+from typing import Optional
 from ._IonChannel import IonChannel
+import numpy as np
 
 
 class IonChannelConst(IonChannel):
@@ -8,19 +10,19 @@ class IonChannelConst(IonChannel):
     Attributes:
         g: ion channel conductance.
     """
-    g: float = 0.0
 
-    def __init__(self, g: float):
+    def __init__(self, N_neurons: int, g: float):
         """
         Initialize a new ion channel with constant conductance.
 
         :param g: conductance of this channel.
         """
-        self.g = g
+        super().__init__(N_neurons)
+        self.g += g
 
-    def update_g(self, v, t, dt) -> float: 
+    def update_g(self, V: np.ndarray, t: float, dt: float) -> np.ndarray: 
         return self.g
 
-    def reset(self, v_init: float = 0):
+    def reset(self, V_init: Optional[np.ndarray] = None):
         return
 

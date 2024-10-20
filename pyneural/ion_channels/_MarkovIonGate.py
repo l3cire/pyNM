@@ -1,4 +1,5 @@
-from typing import Callable
+from typing import Callable, Optional
+import numpy as np
 
 
 class MarkovIonGate:
@@ -8,9 +9,9 @@ class MarkovIonGate:
     Attributes:
         state: probability of the gate being open (alternatively, a fraction of open gates of this type).
     """
-    state: float = 0.0
+    state: np.ndarray = np.array([])
 
-    def __init__(self, alpha: Callable[[float], float], beta: Callable[[float], float], v_init: float = 0):
+    def __init__(self, N_neurons: int, alpha: Callable[[np.ndarray], np.ndarray], beta: Callable[[np.ndarray], np.ndarray], V_init: Optional[np.ndarray] = None):
         """
         Initialize a new Markov ion gate.
 
@@ -18,23 +19,31 @@ class MarkovIonGate:
         :param beta: a function that maps current mambrane potantial in mV to the probability of the gate transitioning from open to closed. 
         :param v_init: initial membrane potantial at stability.
         """
+        self.N_neurons = N_neurons
         self._alpha = alpha
         self._beta = beta
-        self.set_inf_state(v_init)
+        
+        zero = np.array([0])
+        self.rest_val: float = alpha(zero)[0]/(beta(zero)[0] + alpha(zero)[0]) 
 
-    def set_inf_state(self, v: float):
+        self.set_inf_state(V_init)
+
+    def set_inf_state(self, V: Optional[np.ndarray] = None):
         """
         Set the state to the stable value at a given membrane potential.
 
         :param v: membrane potential in mV.
         """
-        self.state = self._alpha(v) / (self._alpha(v) + self._beta(v))
+        if V == None:
+            self.state = np.zeros(self.N_neurons) + self.rest_val
+        else:
+            self.state = np.divide(self._alpha(V),  self._alpha(V) + self._beta(V))
 
-    def update(self, v: float, dt: float):
+    def update(self, V: np.ndarray, dt: float):
         """
         Update the state given current membrane potential.
 
         :param v: membrane potential in mV.
         :param dt: time interval between two consecutive updates in mV.
         """
-        self.state += (self._alpha(v) * (1 - self.state) - self._beta(v) * self.state) * dt
+        self.state += (self._alpha(V) * (1 - self.state) - self._beta(V) * self.state) * dt

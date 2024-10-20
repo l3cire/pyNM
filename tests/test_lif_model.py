@@ -3,6 +3,7 @@ from pyneural.input_current import ConstInputCurrent, NoisyConstInputCurrent
 from pyneural.neuron_models import LIFNeuronGroup
 from matplotlib import pyplot as plt
 from matplotlib.axes import Axes
+import numpy as np
 import seaborn as sns
 
 sns.set_theme(style="ticks",
@@ -14,9 +15,10 @@ sns.set_theme(style="ticks",
               },
               )
 
-neuron = LIFNeuronGroup(N_neurons=1)
-I_ext = NoisyConstInputCurrent(N_neurons=1, I=20, std=15)
-stats = NeuralModel().simulate_neurons(neuron, 100000, 0.01, I_ext)
+model = NeuralModel('lif')
+neuron = model.create_model(1)
+I_ext = NoisyConstInputCurrent(N_neurons=1, I=np.array([20]), std=15)
+stats = model.simulate_neurons(neuron, 100000, 0.01, I_ext)
 
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 4))
 

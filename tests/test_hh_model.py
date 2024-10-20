@@ -3,6 +3,7 @@ from pyneural.input_current import ConstInputCurrent, NoisyConstInputCurrent
 from pyneural.neuron_models import HHNeuronGroup
 from matplotlib import pyplot as plt
 from matplotlib.axes import Axes
+import numpy as np
 import seaborn as sns
 
 sns.set_theme(style="ticks",
@@ -14,9 +15,10 @@ sns.set_theme(style="ticks",
               },
               )
 
-neuron = HHNeuronGroup(N_neurons=1)
-I_ext = NoisyConstInputCurrent(N_neurons=1, I=5, std=10)
-stats = NeuralModel().simulate_neurons(neuron, 100000, 0.01, I_ext)
+model = NeuralModel('hh')
+neuron = model.create_model(1)
+I_ext = NoisyConstInputCurrent(N_neurons=1, I=np.array([5]), std=10)
+stats = model.simulate_neurons(neuron, 100000, 0.01, I_ext)
 
 plt.figure(figsize=(10, 8))
 

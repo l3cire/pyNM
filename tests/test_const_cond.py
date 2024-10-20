@@ -3,6 +3,7 @@ from pyneural.input_current import ConstInputCurrent
 from pyneural.neuron_models import ConstCondNeuronGroup
 from matplotlib import pyplot as plt
 from matplotlib.axes import Axes
+import numpy as np
 import seaborn as sns
 
 sns.set_theme(style="ticks",
@@ -14,9 +15,10 @@ sns.set_theme(style="ticks",
               },
               )
 
-neuron = ConstCondNeuronGroup(N_neurons = 1, params={'gL':0.1, 'gK':0.2, 'gNa':0})
-I_ext = ConstInputCurrent(1, 75, 125, 10)
-stats = NeuralModel().simulate_neurons(neuron, 20000, 0.01, I_ext)
+model = NeuralModel('const')
+neuron = model.create_model(1, params={'gL':0.1, 'gK':0.2, 'gNa':0})
+I_ext = ConstInputCurrent(1, 75, 125, np.array([10]))
+stats = model.simulate_neurons(neuron, 20000, 0.01, I_ext)
 
 fig, ax = plt.subplots(1, 1, figsize=(10, 3))
 assert isinstance(ax, Axes)

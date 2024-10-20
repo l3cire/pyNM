@@ -1,4 +1,5 @@
 import numpy as np
+from typing import Optional
 from ._ConstInputCurrent import ConstInputCurrent
 
 
@@ -9,7 +10,7 @@ class NoisyConstInputCurrent(ConstInputCurrent):
 
     _std: float = 0
 
-    def __init__(self, N_neurons: int = 1, start_time: float = 0, end_time: float = np.inf, I: float = 0, std: float = 0):
+    def __init__(self, N_neurons: int = 1, start_time: float = 0, end_time: float = np.inf, I: Optional[np.ndarray] = None, std: float = 0):
         """
         Initialize a new noisy input current object. Apart from its superclass parameters, takes one additional argument:
 
@@ -21,7 +22,7 @@ class NoisyConstInputCurrent(ConstInputCurrent):
 
     def get_current(self, t: float) -> np.ndarray:
         if(t >= self._start_time and t <= self._end_time):
-            return np.random.normal(self._I, self._std, self.N_neurons)
+            return self._I + np.random.normal(0.0, self._std, self.N_neurons)
 
         return np.zeros(self.N_neurons)
         

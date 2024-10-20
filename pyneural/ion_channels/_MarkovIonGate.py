@@ -35,7 +35,7 @@ class MarkovIonGate:
 
         :param V: numpy array containing membrane potentials for each neuron in mV.
         """
-        if V == None:
+        if V is None:
             self.state = np.zeros(self.N_neurons) + self.rest_val
         else:
             self.state = np.divide(self._alpha(V),  self._alpha(V) + self._beta(V))

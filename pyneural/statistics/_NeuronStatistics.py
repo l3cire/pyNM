@@ -25,4 +25,6 @@ class NeuronStatistics:
         """The list containting the numpy arrays of interspike intervals for each neuron in ms."""
         self.mean_interspike_int: list[float] = []
         """The list containing mean interspike intervals for each neuron (0 if none)."""
+        self.spiking_frequency: list[float] = []
+        """The list containing the spiking frequencies foe each neuron (0 of no spikes)."""
 

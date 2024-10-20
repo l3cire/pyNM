@@ -9,22 +9,25 @@ class ConstInputCurrent(InputCurrent):
 
     _start_time: float
     _end_time: float
-    _I: float
+    _I: np.ndarray
 
-    def __init__(self, N_neurons: int = 1, start_time: float = 0.0, end_time: float = np.inf, I: float = 0):
+    def __init__(self, N_neurons: int = 1, start_time: float = 0.0, end_time: float = np.inf, I: Optional[np.ndarray] = None):
         """
         :param N_neurons: number of neurons in a simulation.
         :param start_time: start time of the external stimulation in ms.
         :param end_time: end time of the external stimulation in ms.
-        :param I: value of external stimulation. 
+        :param I: numpy array containing values of external stimulation for each neuron. 
         """
         super().__init__(N_neurons)
         self._start_time = start_time
         self._end_time = end_time
-        self._I = I
+        if I is None:
+            self._I = np.zeros(N_neurons)
+        else:
+            self._I = I
 
     def get_current(self, t: float) -> np.ndarray:
         if(t >= self._start_time and t <= self._end_time):
-            return np.zeros(self.N_neurons) + self._I
+            return self._I.copy()
         return np.zeros(self.N_neurons)
 

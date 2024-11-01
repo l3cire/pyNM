@@ -1,4 +1,5 @@
 import numpy as np
+from typing import Any
 from ._NeuronStepStatistics import NeuronStepStatistics
 
 class NeuronStatistics:
@@ -23,8 +24,8 @@ class NeuronStatistics:
         """The list containding the numpy arrays of steps where spikes occured for each neuron."""
         self.spike_intervals: list[np.ndarray] = []
         """The list containting the numpy arrays of interspike intervals for each neuron in ms."""
-        self.mean_interspike_int: list[float] = []
+        self.mean_interspike_int: list[np.floating[Any]] = []
         """The list containing mean interspike intervals for each neuron (0 if none)."""
-        self.spiking_frequency: list[float] = []
+        self.spiking_frequency: list[np.floating[Any]] = []
         """The list containing the spiking frequencies foe each neuron (0 of no spikes)."""
 

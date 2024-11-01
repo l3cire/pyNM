@@ -44,17 +44,17 @@ class NeuralModel:
             stats.step_data.append(step)
 
         for i in range(neurons.N_neurons):
-            spike_ind, _ = find_peaks(potentials[:,i], height=neurons._V_threshold)
+            spike_ind, _ = find_peaks(potentials[:,i], height=neurons._V_threshold, distance=1/(neurons._max_spike_frequency*dt))
             stats.spikes.append(spike_ind)
             stats.spike_intervals.append(np.diff(spike_ind)*dt)
 
             mean_interspike_int = np.mean(stats.spike_intervals[-1])
             stats.mean_interspike_int.append(mean_interspike_int)
-            stats.spiking_frequency.append(0.0 if mean_interspike_int == 0 else 1/mean_interspike_int)
+            stats.spiking_frequency.append(np.floating(0) if mean_interspike_int == 0 else 1/mean_interspike_int)
 
         return stats
         
-    def get_fi_curve(self, I_ext: np.ndarray, std: float = 0, params: dict = {}, N_iter = 100000, dt = 1) -> np.ndarray:
+    def get_fi_curve(self, I_ext: np.ndarray, std: float = 0, params: dict = {}, N_iter = 100000, dt: float = 1) -> np.ndarray:
         """
         This function computes the f-I (spiking frequency vs. current stimulation) curve for a given neuron.
 

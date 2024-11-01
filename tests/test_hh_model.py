@@ -1,6 +1,5 @@
 from pyneural import NeuralModel
-from pyneural.input_current import ConstInputCurrent, NoisyConstInputCurrent
-from pyneural.neuron_models import HHNeuronGroup
+from pyneural.input_current import NoisyConstInputCurrent
 from matplotlib import pyplot as plt
 from matplotlib.axes import Axes
 import numpy as np
@@ -17,7 +16,7 @@ sns.set_theme(style="ticks",
 
 model = NeuralModel('hh')
 neuron = model.create_model(1)
-I_ext = NoisyConstInputCurrent(N_neurons=1, I=np.array([5]), std=10)
+I_ext = NoisyConstInputCurrent(N_neurons=1, I=np.array([5]), std=0)
 stats = model.simulate_neurons(neuron, 100000, 0.01, I_ext)
 
 plt.figure(figsize=(10, 8))

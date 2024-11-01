@@ -24,6 +24,7 @@ class NeuronGroup(ABC):
         self._V_rest: float = params.get('V_rest', -70.0)
         self._V: np.ndarray = params.get('V_start', np.zeros(self.N_neurons) + self._V_rest)
         self._V_threshold = params.get('V_threshold', 0.0)
+        self._max_spike_frequency = params.get("max_spike_f", 0.5)
 
        
     def reset(self, V: Optional[np.ndarray] = None):

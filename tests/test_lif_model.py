@@ -1,6 +1,5 @@
 from pyneural import NeuralModel
-from pyneural.input_current import ConstInputCurrent, NoisyConstInputCurrent
-from pyneural.neuron_models import LIFNeuronGroup
+from pyneural.input_current import NoisyConstInputCurrent
 from matplotlib import pyplot as plt
 from matplotlib.axes import Axes
 import numpy as np

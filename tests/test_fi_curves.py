@@ -1,5 +1,3 @@
-from pyneural.neuron_models import HHNeuronGroup
-from pyneural.neuron_models import LIFNeuronGroup
 from pyneural import NeuralModel
 import numpy as np
 from matplotlib import pyplot as plt
@@ -15,9 +13,9 @@ sns.set_theme(style="ticks",
               },
               )
 
-model = NeuralModel('lif')
-I = np.linspace(0, 30, 100)
-f_lif = model.get_fi_curve(I, std=20)
+model = NeuralModel('hh')
+I = np.linspace(0, 30, 500)
+f_lif = model.get_fi_curve(I_ext=I, std=3, N_iter= 100000, dt = 0.05)
 
 fig, ax = plt.subplots(1, 1, figsize=(10, 3))
 assert isinstance(ax, Axes)

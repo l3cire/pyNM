@@ -1,8 +1,6 @@
-from dataclasses import dataclass
 from typing import Optional
 import numpy as np
 
-@dataclass
 class NeuronStepStatistics:
     """
     This is the data class for storing an information about a single step of a simulation of group of neurons.
